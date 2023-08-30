@@ -15,9 +15,8 @@ export const MyPosts = () => {
                 New post
             </div>
             <div className={s.posts}>
-                <Post />
-                <Post />
-                <Post />
+                <Post message='Post 1 message goes here' likeCount={15}/>
+                <Post message={`It's a lorem ipsum message for post`} likeCount={23}/>
             </div>
         </div>
     );
