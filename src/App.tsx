@@ -18,6 +18,7 @@ function App() {
                 <NavBar/>
                 <div className='app-wrapper-content'>
                     <Routes>
+                        <Route path='*' Component={Profile}/>
                         <Route path='/profile' Component={Profile}/>
                         <Route path='/dialogues' Component={Dialogues}/>
                         <Route path='/news' Component={News}/>
