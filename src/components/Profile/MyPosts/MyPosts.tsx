@@ -8,13 +8,13 @@ export type PostsDataType = {
     likesCount: number
 }
 
-export const MyPosts = () => {
+type MyPostsPropsTypes = {
+    posts: PostsDataType[]
+}
 
-    const posts:PostsDataType[] = [
-        {id: 1, postText: 'Post 1 message goes here', likesCount: 15},
-        {id: 2, postText: `It's a lorem ipsum message for post`, likesCount: 23},
+export const MyPosts:React.FC<MyPostsPropsTypes> = ({posts}) => {
 
-    ];
+
     const postsElements = posts.map(p => <Post message={p.postText} likeCount={p.likesCount} id={p.id} key={p.id}/>)
 
     return (

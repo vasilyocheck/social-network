@@ -8,9 +8,18 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
+import {DialogueItemPropsType} from "./components/Dialogues/DialogueItem/DialogueItem";
+import {PostsDataType} from "./components/Profile/MyPosts/MyPosts";
+import {MessagePropsType} from "./index";
 
+export type AppPropsType = {
+    dialogues: DialogueItemPropsType[]
+    messages: MessagePropsType[]
+    posts: PostsDataType[]
+}
 
-function App() {
+const App: React.FC<AppPropsType> = ({dialogues, messages, posts}) => {
+    const ProfileComponent = <Profile posts={posts} />
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -18,12 +27,20 @@ function App() {
                 <NavBar/>
                 <div className='app-wrapper-content'>
                     <Routes>
-                        <Route path='*' Component={Profile}/>
-                        <Route path='/profile' Component={Profile}/>
-                        <Route path='/dialogues' Component={Dialogues}/>
-                        <Route path='/news' Component={News}/>
-                        <Route path='/music' Component={Music}/>
-                        <Route path='/settings' Component={Settings}/>
+                        <Route path='*'
+                               element={ProfileComponent}/>
+                        <Route path='/profile'
+                               element={ProfileComponent}/>
+                        <Route path='/dialogues'
+                               element={<Dialogues dialogues={dialogues}
+                                                   messages={messages}
+                               />}/>
+                        <Route path='/news'
+                               element={<News/>}/>
+                        <Route path='/music'
+                               element={<Music/>}/>
+                        <Route path='/settings'
+                               element={<Settings/>}/>
                     </Routes>
                 </div>
             </div>
