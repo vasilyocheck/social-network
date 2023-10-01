@@ -1,15 +1,10 @@
 import React, {useRef} from 'react';
 import s from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-
-export type PostsDataType = {
-    id: number
-    postText: string
-    likesCount: number
-}
+import {PostsType} from "../../../redux/state";
 
 type MyPostsPropsTypes = {
-    state: PostsDataType[]
+    state: PostsType[]
     addPost: (newPost: string) => void
 }
 

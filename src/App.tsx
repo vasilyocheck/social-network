@@ -8,11 +8,9 @@ import {Route, Routes} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {DialogueItemPropsType} from "./components/Dialogues/DialogueItem/DialogueItem";
-import {PostsDataType} from "./components/Profile/MyPosts/MyPosts";
-import {MessagePropsType} from "./index";
+import {StateType} from "./redux/state";
 
-export type ProfilePagePropsType = {
+/*export type ProfilePagePropsType = {
     posts: PostsDataType[]
 }
 
@@ -38,8 +36,9 @@ export type AppPagesPropsType = {
     sidebar: SidebarPropsType
 }
 
-export type AppPropsType = {
-    state: AppPagesPropsType
+*/
+type AppPropsType = {
+    state: StateType
     addPost: (newPost: string) => void
 }
 

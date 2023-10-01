@@ -6,11 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import {addPost, state} from "./redux/state";
 import {BrowserRouter} from "react-router-dom";
 
-export type MessagePropsType = {
-    id: number
-    message: string
-}
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

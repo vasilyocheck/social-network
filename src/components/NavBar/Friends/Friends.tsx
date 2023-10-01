@@ -1,10 +1,10 @@
 import React from 'react';
 import {Friend} from "./Friend/Friend";
 import s from './Friends.module.css';
-import {FriendItemPropsType} from "../../../App";
+import {FriendsType} from "../../../redux/state";
 
 type FriendsPropsType = {
-    state: FriendItemPropsType[]
+    state: FriendsType[]
 }
 
 export const Friends:React.FC<FriendsPropsType> = ({state}) => {

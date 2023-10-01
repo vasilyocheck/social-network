@@ -1,3 +1,44 @@
+export type FriendsType = {
+    id: number
+    name: string
+    pic: string
+}
+
+export type SiderBarType = {
+    friends: FriendsType[]
+}
+
+export type MessagesType = {
+    id: number
+    message: string
+}
+
+export type DialoguesType = {
+    id: number
+    name: string
+}
+
+export type DialoguesPageType = {
+    dialogues: DialoguesType[]
+    messages: MessagesType[]
+}
+
+export type PostsType = {
+    id: number
+    postText: string
+    likesCount: number
+}
+
+export type ProfilePageType = {
+    posts: PostsType[]
+}
+
+export type StateType = {
+    profilePage: ProfilePageType
+    dialoguesPage: DialoguesPageType
+    sidebar: SiderBarType
+}
+
 export const state = {
     profilePage: {
         posts: [
