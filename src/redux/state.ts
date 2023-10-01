@@ -33,3 +33,8 @@ export const state = {
         ]
     }
 }
+
+export const addPost = (newPost: string) => {
+    const newItem = {id: 3, postText: newPost, likesCount: 0}
+    console.log({...state, profilePage: {...state.profilePage, posts: [newItem, ...state.profilePage.posts] }})
+}

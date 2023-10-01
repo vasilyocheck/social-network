@@ -40,34 +40,33 @@ export type AppPagesPropsType = {
 
 export type AppPropsType = {
     state: AppPagesPropsType
+    addPost: (newPost: string) => void
 }
 
-const App: React.FC<AppPropsType> = ({state}) => {
-    const ProfileComponent = <Profile state={state.profilePage} />
+const App: React.FC<AppPropsType> = ({state, addPost}) => {
+    const ProfileComponent = <Profile state={state.profilePage} addPost={addPost} />
     return (
-        <BrowserRouter>
-            <div className="app-wrapper">
-                <Header/>
-                <NavBar state={state.sidebar}/>
-                <div className='app-wrapper-content'>
-                    <Routes>
-                        <Route path='*'
-                               element={ProfileComponent}/>
-                        <Route path='/profile'
-                               element={ProfileComponent}/>
-                        <Route path='/dialogues'
-                               element={<Dialogues state={state.dialoguesPage}
-                               />}/>
-                        <Route path='/news'
-                               element={<News/>}/>
-                        <Route path='/music'
-                               element={<Music/>}/>
-                        <Route path='/settings'
-                               element={<Settings/>}/>
-                    </Routes>
-                </div>
+        <div className="app-wrapper">
+            <Header/>
+            <NavBar state={state.sidebar}/>
+            <div className='app-wrapper-content'>
+                <Routes>
+                    <Route path='*'
+                           element={ProfileComponent}/>
+                    <Route path='/profile'
+                           element={ProfileComponent}/>
+                    <Route path='/dialogues'
+                           element={<Dialogues state={state.dialoguesPage}
+                           />}/>
+                    <Route path='/news'
+                           element={<News/>}/>
+                    <Route path='/music'
+                           element={<Music/>}/>
+                    <Route path='/settings'
+                           element={<Settings/>}/>
+                </Routes>
             </div>
-        </BrowserRouter>
+        </div>
     );
 }
 

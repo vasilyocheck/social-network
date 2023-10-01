@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {state} from "./redux/state";
+import {addPost, state} from "./redux/state";
+import {BrowserRouter} from "react-router-dom";
 
 export type MessagePropsType = {
     id: number
@@ -15,7 +16,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App state={state}/>
+      <BrowserRouter>
+          <App state={state} addPost={addPost}/>
+      </BrowserRouter>
   </React.StrictMode>
 );
 

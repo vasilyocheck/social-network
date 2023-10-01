@@ -8,15 +8,16 @@ type FriendsPropsType = {
 }
 
 export const Friends:React.FC<FriendsPropsType> = ({state}) => {
+    const friendsList = state.map(f => {
+        return (
+            <Friend key={f.id} id={f.id} name={f.name} imageSrc={f.pic} />
+        );
+    })
     return (
         <div className={s.friends}>
             <h3>Friends:</h3>
             <div className={s.friendsBlock}>
-                {state.map(f => {
-                    return (
-                        <Friend id={f.id} name={f.name} imageSrc={f.pic} />
-                    );
-                })}
+                {friendsList}
             </div>
         </div>
     );

@@ -6,13 +6,14 @@ import {ProfilePagePropsType} from "../../App";
 
 type ProfilePropsType = {
     state: ProfilePagePropsType
+    addPost: (newPost: string) => void
 }
 
-export const Profile: React.FC<ProfilePropsType> = ({state}) => {
+export const Profile: React.FC<ProfilePropsType> = ({state, addPost}) => {
     return (
-        <div>
+        <div className={''}>
             <ProfileInfo />
-            <MyPosts posts={state.posts} />
+            <MyPosts state={state.posts} addPost={addPost} />
         </div>
     );
 };
