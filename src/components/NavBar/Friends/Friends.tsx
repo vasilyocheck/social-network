@@ -14,7 +14,7 @@ export const Friends:React.FC<FriendsPropsType> = ({state}) => {
             <div className={s.friendsBlock}>
                 {state.map(f => {
                     return (
-                        <Friend key={f.id} id={f.id} name={f.name} imageSrc={f.pic} />
+                        <Friend id={f.id} name={f.name} imageSrc={f.pic} />
                     );
                 })}
             </div>

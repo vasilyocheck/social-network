@@ -8,7 +8,7 @@ type FriendPropsType = {
 }
 export const Friend:React.FC<FriendPropsType> = ({id, name, imageSrc}) => {
     return (
-        <div className={s.friend}>
+        <div className={s.friend} key={id}>
             <img src={imageSrc} alt={name}/>
             <div>{name}</div>
         </div>
