@@ -1,8 +1,14 @@
 import React from 'react';
 import s from './NavBar.module.css';
 import {NavLink} from "react-router-dom";
+import {Friends} from "./Friends/Friends";
+import {SidebarPropsType} from "../../App";
 
-export const NavBar = () => {
+type NavBarPropsType = {
+    state: SidebarPropsType
+}
+
+export const NavBar:React.FC<NavBarPropsType> = ({state}) => {
     return (
         <nav className={s.nav}>
             <div className={s.item}>
@@ -20,6 +26,8 @@ export const NavBar = () => {
             <div className={s.item}>
                 <NavLink to='/settings' className={({ isActive }) => isActive ? s.active : ''}>Settings</NavLink>
             </div>
+            <Friends state={state.friends}/>
         </nav>
+
     );
 };

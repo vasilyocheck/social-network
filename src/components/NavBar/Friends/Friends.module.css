@@ -1,0 +1,9 @@
+.friends {
+    color: white;
+}
+
+.friendsBlock {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

@@ -1,0 +1,35 @@
+export const state = {
+    profilePage: {
+        posts: [
+            {id: 1, postText: 'Post 1 message goes here', likesCount: 15},
+            {id: 2, postText: `It's a lorem ipsum message for post`, likesCount: 23}
+        ]
+    },
+    dialoguesPage: {
+        dialogues: [
+            {id: 1, name: 'Dimych'},
+            {id: 2, name: 'Andrey'},
+            {id: 3, name: 'Sveta'},
+            {id: 4, name: 'Sasha'},
+            {id: 5, name: 'Victor'},
+            {id: 6, name: 'Igor'}
+        ],
+        messages: [
+            {id: 1, message: 'Hi!'},
+            {id: 2, message: 'What about your IT-Kamasutra?'},
+            {id: 3, message: 'Yoh!'},
+            {id: 4, message: 'Yo!'},
+            {id: 5, message: 'Yohhhh!'}
+        ]
+    },
+    sidebar: {
+        friends: [
+            {id: 1, name: 'Andrew', pic: 'https://i.pravatar.cc/150?img=3'},
+            {id: 2, name: 'Sasha', pic: 'https://i.pravatar.cc/150?img=68'},
+            {id: 3, name: 'Sveta', pic: 'https://i.pravatar.cc/150?img=45'},
+            {id: 4, name: 'Katya', pic: 'https://i.pravatar.cc/150?img=44'},
+            {id: 5, name: 'Masha', pic: 'https://i.pravatar.cc/150?img=46'},
+            {id: 6, name: 'Vova', pic: 'https://i.pravatar.cc/150?img=50'}
+        ]
+    }
+}

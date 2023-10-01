@@ -12,19 +12,43 @@ import {DialogueItemPropsType} from "./components/Dialogues/DialogueItem/Dialogu
 import {PostsDataType} from "./components/Profile/MyPosts/MyPosts";
 import {MessagePropsType} from "./index";
 
-export type AppPropsType = {
-    dialogues: DialogueItemPropsType[]
-    messages: MessagePropsType[]
+export type ProfilePagePropsType = {
     posts: PostsDataType[]
 }
 
-const App: React.FC<AppPropsType> = ({dialogues, messages, posts}) => {
-    const ProfileComponent = <Profile posts={posts} />
+export type DialoguesPagePropsType = {
+    dialogues: DialogueItemPropsType[]
+    messages: MessagePropsType[]
+
+}
+
+export type FriendItemPropsType = {
+    id: number
+    name: string
+    pic: string
+}
+
+export type SidebarPropsType = {
+    friends: FriendItemPropsType[]
+}
+
+export type AppPagesPropsType = {
+    profilePage: ProfilePagePropsType
+    dialoguesPage: DialoguesPagePropsType
+    sidebar: SidebarPropsType
+}
+
+export type AppPropsType = {
+    state: AppPagesPropsType
+}
+
+const App: React.FC<AppPropsType> = ({state}) => {
+    const ProfileComponent = <Profile state={state.profilePage} />
     return (
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
-                <NavBar/>
+                <NavBar state={state.sidebar}/>
                 <div className='app-wrapper-content'>
                     <Routes>
                         <Route path='*'
@@ -32,8 +56,7 @@ const App: React.FC<AppPropsType> = ({dialogues, messages, posts}) => {
                         <Route path='/profile'
                                element={ProfileComponent}/>
                         <Route path='/dialogues'
-                               element={<Dialogues dialogues={dialogues}
-                                                   messages={messages}
+                               element={<Dialogues state={state.dialoguesPage}
                                />}/>
                         <Route path='/news'
                                element={<News/>}/>
