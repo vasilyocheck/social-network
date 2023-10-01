@@ -1,14 +1,11 @@
 import React from 'react';
 import s from './Dialogues.module.css'
-import {DialogueItem, DialogueItemPropsType} from "./DialogueItem/DialogueItem";
+import {DialogueItem} from "./DialogueItem/DialogueItem";
 import {Message} from "./Message/Message";
-import {MessagePropsType} from "../../index";
 import {DialoguesPagePropsType} from "../../App";
 
 type DialoguesPropsType = {
     state: DialoguesPagePropsType
-    /*dialogues: DialogueItemPropsType[]
-    messages: MessagePropsType[]*/
 }
 
 export const Dialogues: React.FC<DialoguesPropsType> = ({state}) => {

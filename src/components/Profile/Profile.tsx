@@ -1,8 +1,7 @@
 import React from 'react';
-import {MyPosts, PostsDataType} from "./MyPosts/MyPosts";
+import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ProfilePagePropsType} from "../../App";
-
 
 
 type ProfilePropsType = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Friend} from "./Friend/Friend";
 import s from './Friends.module.css';
-import {FriendItemPropsType, SidebarPropsType} from "../../../App";
+import {FriendItemPropsType} from "../../../App";
 
 type FriendsPropsType = {
     state: FriendItemPropsType[]
