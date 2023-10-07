@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from "../render";
+
 export type FriendsType = {
     id: number
     name: string
@@ -31,6 +33,7 @@ export type PostsType = {
 
 export type ProfilePageType = {
     posts: PostsType[]
+    newPostText: string
 }
 
 export type StateType = {
@@ -39,12 +42,13 @@ export type StateType = {
     sidebar: SiderBarType
 }
 
-export const state = {
+export let state = {
     profilePage: {
         posts: [
             {id: 1, postText: 'Post 1 message goes here', likesCount: 15},
             {id: 2, postText: `It's a lorem ipsum message for post`, likesCount: 23}
-        ]
+        ],
+        newPostText: 'it-kamasutra'
     },
     dialoguesPage: {
         dialogues: [
@@ -75,7 +79,17 @@ export const state = {
     }
 }
 
-export const addPost = (newPost: string) => {
-    const newItem = {id: 3, postText: newPost, likesCount: 0}
-    console.log({...state, profilePage: {...state.profilePage, posts: [newItem, ...state.profilePage.posts] }})
+export const addPost = () => {
+    const newItem = {id: state.profilePage.posts.length + 1, postText: state.profilePage.newPostText, likesCount: 0}
+    //console.log({...state, profilePage: {...state.profilePage, posts: [newItem, ...state.profilePage.posts] }})
+    //rerenderEntireTree({...state, profilePage: {...state.profilePage, posts: [newItem, ...state.profilePage.posts] }});
+    state.profilePage.posts.push(newItem);
+    state.profilePage.newPostText = '';
+    rerenderEntireTree(state);
 }
+
+export const updateNewPostText = (newPostText: string) => {
+    state.profilePage.newPostText = newPostText;
+    rerenderEntireTree(state);
+}
+

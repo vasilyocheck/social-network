@@ -40,10 +40,11 @@ export type AppPagesPropsType = {
 type AppPropsType = {
     state: StateType
     addPost: (newPost: string) => void
+    updateNewPostText: (newPostText: string) => void
 }
 
-const App: React.FC<AppPropsType> = ({state, addPost}) => {
-    const ProfileComponent = <Profile state={state.profilePage} addPost={addPost} />
+const App: React.FC<AppPropsType> = ({state, addPost, updateNewPostText}) => {
+    const ProfileComponent = <Profile profilePage={state.profilePage} addPost={addPost} updateNewPostText={updateNewPostText}/>
     return (
         <div className="app-wrapper">
             <Header/>
