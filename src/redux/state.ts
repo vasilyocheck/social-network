@@ -1,4 +1,6 @@
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree = (state: StateType) => {
+    console.log('state is changed');
+}
 
 export type FriendsType = {
     id: number
@@ -93,3 +95,6 @@ export const updateNewPostText = (newPostText: string) => {
     rerenderEntireTree(state);
 }
 
+export const subscribe = (observer: (state: StateType) => void) => {
+    rerenderEntireTree = observer;
+}
