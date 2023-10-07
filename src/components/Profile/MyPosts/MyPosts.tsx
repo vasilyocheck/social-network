@@ -14,16 +14,16 @@ export const MyPosts:React.FC<MyPostsPropsTypes> = ({posts, addPost, newPostText
 
     const postsElements = posts.map(p => <Post message={p.postText} likeCount={p.likesCount} id={p.id} key={p.id}/>)
 
-    let newPostEl = useRef<HTMLTextAreaElement>(null);
+    let newPostEl = newPostText;
 
     const addPostHandler = () => {
-        if(newPostEl.current !== null) {
-            addPost(newPostEl.current.value);
+        if(newPostText) {
+            addPost(newPostText);
         }
 
     }
     const handlePostOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        if(newPostEl.current !== null) {
+        if(newPostEl) {
             updateNewPostText(e.currentTarget.value)
         }
     }
@@ -33,7 +33,7 @@ export const MyPosts:React.FC<MyPostsPropsTypes> = ({posts, addPost, newPostText
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea onChange={handlePostOnChange} ref={newPostEl} value={newPostText}/>
+                    <textarea onChange={handlePostOnChange} value={newPostText}/>
                 </div>
                 <div>
                     <button onClick={addPostHandler}>add post</button>
