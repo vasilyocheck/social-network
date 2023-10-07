@@ -1,4 +1,4 @@
-let rerenderEntireTree = (state: StateType) => {
+let rerenderEntireTree = () => {
     console.log('state is changed');
 }
 
