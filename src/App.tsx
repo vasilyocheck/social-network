@@ -8,7 +8,7 @@ import {Route, Routes} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {StateType} from "./redux/state";
+import {GeneralActionType, StoreType} from "./redux/state";
 
 /*export type ProfilePagePropsType = {
     posts: PostsDataType[]
@@ -38,13 +38,13 @@ export type AppPagesPropsType = {
 
 */
 type AppPropsType = {
-    state: StateType
-    addPost: (newPost: string) => void
-    updateNewPostText: (newPostText: string) => void
+    state: StoreType
+    dispatch: (action: GeneralActionType) => void
+
 }
 
-const App: React.FC<AppPropsType> = ({state, addPost, updateNewPostText}) => {
-    const ProfileComponent = <Profile profilePage={state.profilePage} addPost={addPost} updateNewPostText={updateNewPostText}/>
+const App: React.FC<AppPropsType> = ({state, dispatch}) => {
+    const ProfileComponent = <Profile profilePage={state.profilePage} dispatch={dispatch} />
     return (
         <div className="app-wrapper">
             <Header/>

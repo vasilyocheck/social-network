@@ -1,6 +1,6 @@
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import {StateType, store} from "./redux/state";
+import {store, StoreType} from "./redux/state";
 import ReactDOM from "react-dom/client";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
@@ -10,12 +10,11 @@ const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
-export let rerenderEntireTree = (state: StateType) => {
+export let rerenderEntireTree = (state: StoreType) => {
     root.render(
         <BrowserRouter>
             <App state={state}
-                 addPost={store.addPost.bind(store)}
-                 updateNewPostText={store.updateNewPostText.bind(store)}/>
+                 dispatch={store.dispatch.bind(store)} />
         </BrowserRouter>
     );
 }

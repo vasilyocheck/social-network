@@ -38,19 +38,32 @@ export type ProfilePageType = {
     newPostText: string
 }
 
-export type StateType = {
+export type StoreType = {
     profilePage: ProfilePageType
     dialoguesPage: DialoguesPageType
     sidebar: SiderBarType
 }
 
 export type StoreState = {
-    _state: StateType,
-    addPost: () => void
-    updateNewPostText: (newPostText: string) => void
-    _callSubscriber: (state: StateType) => void
-    subscribe: (observer: (state: StateType) => void) => void
-    getState: () => StateType
+    _state: StoreType,
+    //addPost: () => void
+    //updateNewPostText: (newPostText: string) => void
+    _callSubscriber: (state: StoreType) => void
+    subscribe: (observer: (state: StoreType) => void) => void
+    getState: () => StoreType
+    dispatch: (action: GeneralActionType) => void
+}
+
+export type GeneralActionType = AddPostType | UpdateNewPostTextType;
+
+type AddPostType = {
+    type: 'ADD-POST'
+    newPostText: string
+}
+
+type UpdateNewPostTextType = {
+    type: 'UPDATE-NEW-POSTTEXT'
+    newPostText: string
 }
 
 export const store: StoreState = {
@@ -90,13 +103,16 @@ export const store: StoreState = {
             ]
         }
     },
+    _callSubscriber(state: StoreType){
+        console.log('state is changed');
+    },
     getState() {
         return this._state;
     },
-    _callSubscriber(state: StateType){
-        console.log('state is changed');
+    subscribe(observer: (state: StoreType) => void){
+        this._callSubscriber = observer;
     },
-    addPost() {
+    /*addPost() {
         const newItem: PostsType = {
             id: this._state.profilePage.posts.length + 1,
             postText: this._state.profilePage.newPostText,
@@ -111,9 +127,24 @@ export const store: StoreState = {
     updateNewPostText(newPostText: string)  {
         this._state.profilePage.newPostText = newPostText;
         this._callSubscriber(this._state);
-    },
-    subscribe(observer: (state: StateType) => void){
-        this._callSubscriber = observer;
+    },*/
+    dispatch(action: any) {
+        if(action.type === 'ADD-POST') {
+            const newItem: PostsType = {
+                id: this._state.profilePage.posts.length + 1,
+                postText: this._state.profilePage.newPostText,
+                likesCount: 0
+            }
+            //console.log({...state, profilePage: {...state.profilePage, posts: [newItem, ...state.profilePage.posts] }})
+            //rerenderEntireTree({...state, profilePage: {...state.profilePage, posts: [newItem, ...state.profilePage.posts] }});
+            this._state.profilePage.posts.push(newItem);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber(this._state);
+        } else if(action.type === 'UPDATE-NEW-POSTTEXT') {
+            this._state.profilePage.newPostText = action.newPostText;
+            this._callSubscriber(this._state);
+        }
     }
+
 }
 
