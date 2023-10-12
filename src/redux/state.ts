@@ -25,6 +25,7 @@ export type DialoguesType = {
 export type DialoguesPageType = {
     dialogues: DialoguesType[]
     messages: MessagesType[]
+    newMessage: string
 }
 
 export type PostsType = {
@@ -54,11 +55,18 @@ export type StoreState = {
     dispatch: (action: GeneralActionType) => void
 }
 
-export type GeneralActionType = AddPostType | UpdateNewPostTextType;
+export type GeneralActionType = AddPostType
+    | UpdateNewPostTextType
+    | UpdateNewMessageTextType
+    |AddNewMessageType;
 
 type AddPostType = ReturnType<typeof addPostAC>
 
 type UpdateNewPostTextType = ReturnType<typeof updateNewPostTextAC>
+
+type UpdateNewMessageTextType = ReturnType<typeof updateNewMessageTextAC>
+
+type AddNewMessageType = ReturnType<typeof addNewMessage>
 
 export const store: StoreState = {
     _state: {
@@ -84,7 +92,8 @@ export const store: StoreState = {
                 {id: 3, message: 'Yoh!'},
                 {id: 4, message: 'Yo!'},
                 {id: 5, message: 'Yohhhh!'}
-            ]
+            ],
+            newMessage: 'kamasutra-message'
         },
         sidebar: {
             friends: [
@@ -114,11 +123,20 @@ export const store: StoreState = {
                 postText: this._state.profilePage.newPostText,
                 likesCount: 0
             }
-            this._state.profilePage.posts.push(newItem);
+            this._state.profilePage.posts.unshift(newItem);
             this._state.profilePage.newPostText = '';
             this._callSubscriber(this._state);
         } else if(action.type === 'UPDATE-NEW-POSTTEXT') {
             this._state.profilePage.newPostText = action.payload.newPostText;
+            this._callSubscriber(this._state);
+        } else if(action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
+            this._state.dialoguesPage.newMessage = action.payload.newMessageText;
+            this._callSubscriber(this._state);
+        } else if(action.type === 'ADD-NEW-MESSAGE'){
+            this._state.dialoguesPage.messages.push(
+                {id: this._state.dialoguesPage.messages.length + 1,
+                    message: this._state.dialoguesPage.newMessage});
+            this._state.dialoguesPage.newMessage = '';
             this._callSubscriber(this._state);
         }
     }
@@ -136,5 +154,20 @@ export const updateNewPostTextAC = (newPostText: string) => {
         payload: {
             newPostText
         }
-    }
+    } as const
+}
+
+export const updateNewMessageTextAC = (newMessageText: string) => {
+    return {
+        type: 'UPDATE-NEW-MESSAGE-TEXT',
+        payload: {
+            newMessageText
+        }
+    } as const
+}
+
+export const addNewMessage = () => {
+    return {
+        type: 'ADD-NEW-MESSAGE'
+    } as const
 }
