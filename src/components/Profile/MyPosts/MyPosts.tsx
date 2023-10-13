@@ -1,7 +1,8 @@
 import React, {ChangeEvent} from 'react';
 import s from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {addPostAC, GeneralActionType, PostsType, updateNewPostTextAC} from "../../../redux/state";
+import {GeneralActionType, PostsType} from "../../../redux/state";
+import {addPostAC, updateNewPostTextAC} from "../../../redux/reducers/profile-reducer";
 
 type MyPostsPropsTypes = {
     posts: PostsType[]
@@ -23,7 +24,9 @@ export const MyPosts:React.FC<MyPostsPropsTypes> = ({posts, dispatch, newPostTex
     }
     const handlePostOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         if(newPostText || typeof newPostText === 'string') {
-            dispatch(updateNewPostTextAC(e.currentTarget.value))
+            console.log(e.currentTarget.value)
+            dispatch(updateNewPostTextAC(e.currentTarget.value));
+
         }
     }
 

@@ -10,33 +10,7 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {GeneralActionType, StoreType} from "./redux/state";
 
-/*export type ProfilePagePropsType = {
-    posts: PostsDataType[]
-}
 
-export type DialoguesPagePropsType = {
-    dialogues: DialogueItemPropsType[]
-    messages: MessagePropsType[]
-
-}
-
-export type FriendItemPropsType = {
-    id: number
-    name: string
-    pic: string
-}
-
-export type SidebarPropsType = {
-    friends: FriendItemPropsType[]
-}
-
-export type AppPagesPropsType = {
-    profilePage: ProfilePagePropsType
-    dialoguesPage: DialoguesPagePropsType
-    sidebar: SidebarPropsType
-}
-
-*/
 type AppPropsType = {
     state: StoreType
     dispatch: (action: GeneralActionType) => void

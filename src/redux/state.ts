@@ -1,6 +1,6 @@
-/*let rerenderEntireTree = (store: StoreState) => {
-    console.log('state is changed');
-}*/
+import {GeneralProfileReducerType, profileReducer} from "./reducers/profile-reducer";
+import {dialoguesReducer, GeneralDialoguesReducer} from "./reducers/dialogues-reducer";
+import {sidebarReducer} from "./reducers/sidebar-reducer";
 
 export type FriendsType = {
     id: number
@@ -46,27 +46,16 @@ export type StoreType = {
 }
 
 export type StoreState = {
-    _state: StoreType,
-    //addPost: () => void
-    //updateNewPostText: (newPostText: string) => void
+    _state: StoreType
     _callSubscriber: (state: StoreType) => void
     subscribe: (observer: (state: StoreType) => void) => void
     getState: () => StoreType
     dispatch: (action: GeneralActionType) => void
 }
 
-export type GeneralActionType = AddPostType
-    | UpdateNewPostTextType
-    | UpdateNewMessageTextType
-    |AddNewMessageType;
+export type GeneralActionType = GeneralDialoguesReducer
+    | GeneralProfileReducerType;
 
-type AddPostType = ReturnType<typeof addPostAC>
-
-type UpdateNewPostTextType = ReturnType<typeof updateNewPostTextAC>
-
-type UpdateNewMessageTextType = ReturnType<typeof updateNewMessageTextAC>
-
-type AddNewMessageType = ReturnType<typeof addNewMessage>
 
 export const store: StoreState = {
     _state: {
@@ -106,68 +95,22 @@ export const store: StoreState = {
             ]
         }
     },
-    _callSubscriber(state: StoreType){
+    _callSubscriber(state: StoreType) {
         console.log('state is changed');
     },
     getState() {
         return this._state;
     },
-    subscribe(observer: (state: StoreType) => void){
+    subscribe(observer: (state: StoreType) => void) {
         this._callSubscriber = observer;
     },
     dispatch(action: any) {
-        if(action.type === 'ADD-POST') {
-
-            const newItem: PostsType = {
-                id: this._state.profilePage.posts.length + 1,
-                postText: this._state.profilePage.newPostText,
-                likesCount: 0
-            }
-            this._state.profilePage.posts.unshift(newItem);
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber(this._state);
-        } else if(action.type === 'UPDATE-NEW-POSTTEXT') {
-            this._state.profilePage.newPostText = action.payload.newPostText;
-            this._callSubscriber(this._state);
-        } else if(action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
-            this._state.dialoguesPage.newMessage = action.payload.newMessageText;
-            this._callSubscriber(this._state);
-        } else if(action.type === 'ADD-NEW-MESSAGE'){
-            this._state.dialoguesPage.messages.push(
-                {id: this._state.dialoguesPage.messages.length + 1,
-                    message: this._state.dialoguesPage.newMessage});
-            this._state.dialoguesPage.newMessage = '';
-            this._callSubscriber(this._state);
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialoguesPage = dialoguesReducer(this._state.dialoguesPage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+        this._callSubscriber(this._state);
     }
 }
 
-export const addPostAC = () => {
-    return {
-        type: 'ADD-POST'
-    } as const
-}
 
-export const updateNewPostTextAC = (newPostText: string) => {
-    return {
-        type: 'UPDATE-NEW-POSTTEXT',
-        payload: {
-            newPostText
-        }
-    } as const
-}
 
-export const updateNewMessageTextAC = (newMessageText: string) => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-TEXT',
-        payload: {
-            newMessageText
-        }
-    } as const
-}
-
-export const addNewMessage = () => {
-    return {
-        type: 'ADD-NEW-MESSAGE'
-    } as const
-}
