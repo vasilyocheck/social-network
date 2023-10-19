@@ -1,43 +1,6 @@
-import {GeneralProfileReducerType, profileReducer} from "./reducers/profile-reducer";
-import {dialoguesReducer, GeneralDialoguesReducer} from "./reducers/dialogues-reducer";
-import {sidebarReducer} from "./reducers/sidebar-reducer";
-
-export type FriendsType = {
-    id: number
-    name: string
-    pic: string
-}
-
-export type SiderBarType = {
-    friends: FriendsType[]
-}
-
-export type MessagesType = {
-    id: number
-    message: string
-}
-
-export type DialoguesType = {
-    id: number
-    name: string
-}
-
-export type DialoguesPageType = {
-    dialogues: DialoguesType[]
-    messages: MessagesType[]
-    newMessage: string
-}
-
-export type PostsType = {
-    id: number
-    postText: string
-    likesCount: number
-}
-
-export type ProfilePageType = {
-    posts: PostsType[]
-    newPostText: string
-}
+import {GeneralProfileReducerType, ProfilePageType, profileReducer} from "./reducers/profile-reducer";
+import {DialoguesPageType, dialoguesReducer, GeneralDialoguesReducer} from "./reducers/dialogues-reducer";
+import {sidebarReducer, SiderBarType} from "./reducers/sidebar-reducer";
 
 export type StoreType = {
     profilePage: ProfilePageType

@@ -1,9 +1,43 @@
-import {DialoguesPageType} from "../state";
 
 export type GeneralDialoguesReducer = UpdateNewMessageTextType
     | AddNewMessageType;
 
-export const dialoguesReducer = (state: DialoguesPageType, action: GeneralDialoguesReducer): DialoguesPageType => {
+export type MessagesType = {
+    id: number
+    message: string
+}
+
+export type DialoguesType = {
+    id: number
+    name: string
+}
+
+export type DialoguesPageType = {
+    dialogues: DialoguesType[]
+    messages: MessagesType[]
+    newMessage: string
+}
+
+const initialState = {
+    dialogues: [
+        {id: 1, name: 'Dimych'},
+        {id: 2, name: 'Andrey'},
+        {id: 3, name: 'Sveta'},
+        {id: 4, name: 'Sasha'},
+        {id: 5, name: 'Victor'},
+        {id: 6, name: 'Igor'}
+    ],
+    messages: [
+        {id: 1, message: 'Hi!'},
+        {id: 2, message: 'What about your IT-Kamasutra?'},
+        {id: 3, message: 'Yoh!'},
+        {id: 4, message: 'Yo!'},
+        {id: 5, message: 'Yohhhh!'}
+    ],
+    newMessage: 'kamasutra-message'
+}
+
+export const dialoguesReducer = (state: DialoguesPageType = initialState, action: GeneralDialoguesReducer): DialoguesPageType => {
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE-TEXT': {
             return {...state, newMessage: action.payload.newMessageText };

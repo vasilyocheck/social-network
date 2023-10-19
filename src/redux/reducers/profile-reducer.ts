@@ -1,8 +1,26 @@
-import {PostsType, ProfilePageType} from "../state";
 
 export type GeneralProfileReducerType = AddPostType | UpdateNewPostTextType;
 
-export const profileReducer = (state: ProfilePageType, action: GeneralProfileReducerType): ProfilePageType => {
+export type PostsType = {
+    id: number
+    postText: string
+    likesCount: number
+}
+
+export type ProfilePageType = {
+    posts: PostsType[]
+    newPostText: string
+}
+
+const initialState = {
+    posts: [
+        {id: 1, postText: 'Post 1 message goes here', likesCount: 15},
+        {id: 2, postText: `It's a lorem ipsum message for post`, likesCount: 23}
+    ],
+    newPostText: 'it-kamasutra'
+}
+
+export const profileReducer = (state: ProfilePageType = initialState, action: GeneralProfileReducerType): ProfilePageType => {
     switch (action.type) {
         case 'ADD-POST': {
             const newItem: PostsType = {

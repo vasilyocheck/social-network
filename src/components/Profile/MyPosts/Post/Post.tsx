@@ -1,5 +1,6 @@
 import React from 'react';
 import s from "./Post.module.css";
+import {PostsType} from "../../../../redux/reducers/profile-reducer";
 
 type PostPropsType = {
     message: string
