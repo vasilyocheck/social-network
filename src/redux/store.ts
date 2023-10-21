@@ -2,7 +2,7 @@ import {GeneralProfileReducerType, ProfilePageType, profileReducer} from "./redu
 import {DialoguesPageType, dialoguesReducer, GeneralDialoguesReducer} from "./reducers/dialogues-reducer";
 import {sidebarReducer, SiderBarType} from "./reducers/sidebar-reducer";
 
-export type StoreType = {
+type StoreType = {
     profilePage: ProfilePageType
     dialoguesPage: DialoguesPageType
     sidebar: SiderBarType

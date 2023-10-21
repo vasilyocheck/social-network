@@ -1,16 +1,52 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, FC} from 'react';
 import s from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {GeneralActionType} from "../../../redux/store";
-import {addPostAC, PostsType, updateNewPostTextAC} from "../../../redux/reducers/profile-reducer";
+import {PostsType} from "../../../redux/reducers/profile-reducer";
 
 type MyPostsPropsTypes = {
     posts: PostsType[]
     newPostText: string
-    dispatch: (action: GeneralActionType) => void
+    updateNewPostText: (newPostText: string) => void
+    addPost: () => void
 
 }
 
+export const MyPosts: FC <MyPostsPropsTypes> = ({posts, newPostText, updateNewPostText, addPost}) => {
+
+    const postsElements = posts.map(p =>
+        <Post message={p.postText} likeCount={p.likesCount} id={p.id} key={p.id}/>)
+
+    const onAddPost = () => {
+        addPost();
+    }
+    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        if(newPostText) {
+            updateNewPostText((e.currentTarget.value));
+        }
+    }
+
+    return (
+        <div className={s.postsBlock}>
+            <h3>My posts</h3>
+            <div>
+                <div>
+                    <textarea onChange={onPostChange} value={newPostText}/>
+                </div>
+                <div>
+                    <button onClick={onAddPost}>add post</button>
+                </div>
+            </div>
+            <div>
+                New post
+            </div>
+            <div className={s.posts}>
+                {postsElements}
+            </div>
+        </div>
+    );
+};
+
+/*
 export const MyPosts:React.FC<MyPostsPropsTypes> = ({posts, dispatch, newPostText}) => {
 
     const postsElements = posts.map(p =>
@@ -23,10 +59,8 @@ export const MyPosts:React.FC<MyPostsPropsTypes> = ({posts, dispatch, newPostTex
 
     }
     const handlePostOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        if(newPostText || typeof newPostText === 'string') {
-            console.log(e.currentTarget.value)
+        if(newPostText) {
             dispatch(updateNewPostTextAC(e.currentTarget.value));
-
         }
     }
 
@@ -49,4 +83,4 @@ export const MyPosts:React.FC<MyPostsPropsTypes> = ({posts, dispatch, newPostTex
             </div>
         </div>
     );
-};
+};*/

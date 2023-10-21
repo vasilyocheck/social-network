@@ -15,7 +15,7 @@ export let rerenderEntireTree = (state: StoreType) => {
         <BrowserRouter>
             <App state={state}
                  dispatch={store.dispatch.bind(store)}
-                 store={state}
+                 store={store}
             />
         </BrowserRouter>
     );

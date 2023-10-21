@@ -11,4 +11,5 @@ const reducers = combineReducers({
     sidebar: sidebarReducer
 })
 
+
 export const store = legacy_createStore(reducers);
