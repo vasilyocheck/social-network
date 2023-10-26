@@ -20,9 +20,7 @@ export const MyPosts: FC <MyPostsPropsTypes> = ({posts, newPostText, updateNewPo
         addPost();
     }
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        if(newPostText) {
-            updateNewPostText((e.currentTarget.value));
-        }
+            updateNewPostText(e.currentTarget.value);
     }
 
     return (

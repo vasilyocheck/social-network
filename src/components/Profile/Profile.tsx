@@ -3,15 +3,11 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 
 
-type ProfilePropsType = {
-    store: any
-}
-
-export const Profile: React.FC<ProfilePropsType> = ({store}) => {
+export const Profile = () => {
     return (
         <div className={''}>
             <ProfileInfo/>
-            <MyPostsContainer store={store} />
+            <MyPostsContainer />
         </div>
     );
 };

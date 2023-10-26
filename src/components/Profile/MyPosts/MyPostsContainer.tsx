@@ -1,21 +1,22 @@
 import React, {FC} from 'react';
 import {MyPosts} from "./MyPosts";
-import {addPostAC, updateNewPostTextAC} from "../../../redux/reducers/profile-reducer";
+import {addPostAC, PostsType, updateNewPostTextAC} from "../../../redux/reducers/profile-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {StoreType} from "../../../redux/redux-store";
 
-type MyPostsContainerPropsType = {
-    store: any
-}
 
-export const MyPostsContainer: FC<MyPostsContainerPropsType> = ({store}) => {
-    const posts = store.getState().profilePage.posts;
-    const newPostText = store.getState().profilePage.newPostText;
-    console.log(newPostText);
+
+export const MyPostsContainer = () => {
+    const dispatch = useDispatch();
+    const posts = useSelector<StoreType, PostsType[] >(state => state.profilePage.posts);
+    const newPostText = useSelector<StoreType, string>(state => state.profilePage.newPostText);
+
 
     const onPostChange = (newPostText: string) => {
-        store.dispatch(updateNewPostTextAC(newPostText));
+        dispatch(updateNewPostTextAC(newPostText));
     }
     const addPost = () => {
-        store.dispatch(addPostAC());
+        dispatch(addPostAC());
     }
 
     return (

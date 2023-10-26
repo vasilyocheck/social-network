@@ -34,7 +34,6 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ge
             return {...state, newPostText: action.payload.newPostText};
         }
         default: {
-            console.log('no state was found')
             return state;
         }
     }
@@ -49,6 +48,7 @@ export const addPostAC = () => {
 
 type UpdateNewPostTextType = ReturnType<typeof updateNewPostTextAC>
 export const updateNewPostTextAC = (newPostText: string) => {
+    console.log('update new post text AC is invoked')
     return {
         type: 'UPDATE-NEW-POSTTEXT',
         payload: {

@@ -8,7 +8,8 @@ type NavBarPropsType = {
     state: SiderBarType
 }
 
-export const NavBar:React.FC<NavBarPropsType> = ({state}) => {
+export const NavBar = () => {
+
     return (
         <nav className={s.nav}>
             <div className={s.item}>
@@ -26,7 +27,7 @@ export const NavBar:React.FC<NavBarPropsType> = ({state}) => {
             <div className={s.item}>
                 <NavLink to='/settings' className={({ isActive }) => isActive ? s.active : ''}>Settings</NavLink>
             </div>
-            <Friends state={state.friends}/>
+            <Friends />
         </nav>
 
     );

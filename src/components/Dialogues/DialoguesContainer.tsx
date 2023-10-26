@@ -1,21 +1,19 @@
 import React, {FC} from 'react';
-import {addNewMessage, updateNewMessageTextAC} from "../../redux/reducers/dialogues-reducer";
+import {addNewMessage, DialoguesPageType, updateNewMessageTextAC} from "../../redux/reducers/dialogues-reducer";
 import {Dialogues} from "./Dialogues";
+import {useDispatch, useSelector} from "react-redux";
+import {StoreType} from "../../redux/redux-store";
 
-type DialoguesContainerPropsType = {
-    store: any
-}
-
-export const DialoguesContainer: FC <DialoguesContainerPropsType> = ({store}) => {
-    const dialoguesPage = store.getState().dialoguesPage;
-    console.log(dialoguesPage);
+export const DialoguesContainer = () => {
+    const dispatch = useDispatch();
+    const dialoguesPage = useSelector<StoreType, DialoguesPageType>(state => state.dialoguesPage);
 
     const updateMessageBody = (newMessageBody: string) => {
-        store.dispatch(updateNewMessageTextAC(newMessageBody));
+        dispatch(updateNewMessageTextAC(newMessageBody));
     }
 
     const addMessage = () => {
-        store.dispatch(addNewMessage());
+        dispatch(addNewMessage());
     }
 
     return (

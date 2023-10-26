@@ -20,24 +20,20 @@ type AppPropsType = {
 
 }
 
-const App: React.FC<AppPropsType> = ({state, dispatch, store}) => {
-    const ProfileComponent = <Profile store={store}/>
+const App = () => {
     return (
         <div className="app-wrapper">
             <Header/>
-            <NavBar state={state.sidebar}/>
+            <NavBar />
             <div className='app-wrapper-content'>
                 <Routes>
                     <Route path='*'
-                           element={ProfileComponent}/>
+                           element={<Profile />}/>
                     <Route path='/profile'
-                           element={ProfileComponent}/>
+                           element={<Profile />}/>
                     <Route path='/dialogues'
                            element={
-                               /*<Dialogues state={state.dialoguesPage}
-                                          dispatch={dispatch}
-                               />*/
-                               <DialoguesContainer store={store}/>
+                               <DialoguesContainer />
                     }
                     />
                     <Route path='/news'
