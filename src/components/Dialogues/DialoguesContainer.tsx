@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {addNewMessage, DialoguesPageType, updateNewMessageTextAC} from "../../redux/reducers/dialogues-reducer";
 import {Dialogues} from "./Dialogues";
 import {useDispatch, useSelector} from "react-redux";

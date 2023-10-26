@@ -1,9 +1,8 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {MyPosts} from "./MyPosts";
 import {addPostAC, PostsType, updateNewPostTextAC} from "../../../redux/reducers/profile-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {StoreType} from "../../../redux/redux-store";
-
 
 
 export const MyPostsContainer = () => {
