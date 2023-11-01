@@ -19,7 +19,7 @@ export const Users: FC<UsersPropsType> = ({users, follow, unfollow, setUsers}) =
                 {id: 3, followed: false, photoUrl: 'https://i.pravatar.cc/150?img=52', fullName: 'Andrew', status: 'I am a boss either', location: {city: 'Kiev', country: 'Ukraine'}}
             ]
         );
-    }, [setUsers]);
+    }, []);
 
     return (
         <div>
