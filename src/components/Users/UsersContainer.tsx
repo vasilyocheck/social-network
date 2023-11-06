@@ -1,9 +1,9 @@
 import React from 'react';
-import {Users} from "./Users";
 import {useDispatch, useSelector} from "react-redux";
 import {StoreType} from "../../redux/redux-store";
 import {followAC, setUsersAC, unfollowAC} from "../../redux/reducers/users-reducer";
 import {UserType} from "../../api/users-api";
+import {Users} from "./Users";
 
 export const UsersContainer = () => {
     const dispatch = useDispatch();

@@ -1,8 +1,7 @@
-import React, {FC} from 'react';
-import s from '../../components/Users/Users.module.css'
+import React from 'react'
+import s from "./Users.module.css";
+import avatarPlaceholder from "../../assets/img/avatar-placeholder.png";
 import {usersApi, UserType} from "../../api/users-api";
-import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
-
 
 type UsersPropsType = {
     users: UserType[]
@@ -11,22 +10,25 @@ type UsersPropsType = {
     setUsers: (newUsers: UserType[]) => void
 }
 
-export const Users: FC<UsersPropsType> = ({users, follow, unfollow, setUsers}) => {
-    if(users.length < 1) {
-        usersApi.getUsers()
-            .then(res => setUsers(res.data.items))
+export class Users extends React.Component<UsersPropsType>{
+    constructor(props: UsersPropsType) {
+        super(props);
+        if(this.props.users.length < 1) {
+            usersApi.getUsers()
+                .then(res => this.props.setUsers(res.data.items))
+        }
     }
 
-    return (
-        <div>
-            {users.map(u => {
+    render() {
+        return (
+            <div>
+                {this.props.users.map(u => {
+                    const followUnfollowButton = u.followed
+                        ? <button onClick={() => this.props.unfollow(u.id)}>Unfollow</button>
+                        : <button onClick={() => this.props.follow(u.id)}>Follow</button>;
 
-                const followUnfollowButton = u.followed
-                    ? <button onClick={() => unfollow(u.id)}>Unfollow</button>
-                    : <button onClick={() => follow(u.id)}>Follow</button>;
-
-                return (
-                    <div key={u.id}>
+                    return (
+                        <div key={u.id}>
                         <span>
                             <div className={s.avatarContainer}>
                                 <img src={u.photos.small || avatarPlaceholder} alt={u.name}/>
@@ -35,7 +37,7 @@ export const Users: FC<UsersPropsType> = ({users, follow, unfollow, setUsers}) =
                                 {followUnfollowButton}
                             </div>
                         </span>
-                        <span>
+                            <span>
                             <span>
                                 <div>{u.name}</div>
                                 <div>{u.status}</div>
@@ -45,9 +47,10 @@ export const Users: FC<UsersPropsType> = ({users, follow, unfollow, setUsers}) =
                                 <div>{'u.location.city'}</div>
                             </span>
                         </span>
-                    </div>
-                );
-            })}
-        </div>
-    );
-};
+                        </div>
+                    );
+                })}
+            </div>
+        );
+    }
+}
