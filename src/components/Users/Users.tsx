@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC} from 'react';
 import s from '../../components/Users/Users.module.css'
 import {usersApi, UserType} from "../../api/users-api";
 import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
