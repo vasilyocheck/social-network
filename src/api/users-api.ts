@@ -18,8 +18,14 @@ export type UserType = {
     uniqueUrlName: null | string
 }
 
+type UsersResponse = {
+    items: UserType[]
+    totalCount: number
+    error: string
+}
+
 export const usersApi = {
     getUsers() {
-        return instance.get(`users`);
+        return instance.get<UsersResponse>(`users`);
     }
 }

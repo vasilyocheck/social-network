@@ -4,6 +4,8 @@ type UsersStateType = {
     users: UserType[]
 }
 
+
+
 const initialState = {
     users: []
 }
