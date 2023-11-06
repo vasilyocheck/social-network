@@ -1,6 +1,8 @@
 import React, {FC, useEffect} from 'react';
-import {UserType} from "../../redux/reducers/users-reducer";
 import s from '../../components/Users/Users.module.css'
+import {usersApi, UserType} from "../../api/users-api";
+import avatarPlaceholder from '../../assets/img/avatar-placeholder.png'
+
 
 type UsersPropsType = {
     users: UserType[]
@@ -10,40 +12,10 @@ type UsersPropsType = {
 }
 
 export const Users: FC<UsersPropsType> = ({users, follow, unfollow, setUsers}) => {
-
-    useEffect(() => {
-        setUsers(
-            [
-                {
-                    id: 1,
-                    followed: false,
-                    photoUrl: 'https://i.pravatar.cc/150?img=64',
-                    fullName: 'Dmitry',
-                    status: 'I am a boss',
-                    location: {
-                        city: 'Minsk',
-                        country: 'Belarus'
-                    }
-                },
-                {
-                    id: 2,
-                    followed: true,
-                    photoUrl: 'https://i.pravatar.cc/150?img=43',
-                    fullName: 'Sasha',
-                    status: 'I am a boss too',
-                    location: {city: 'Moscow', country: 'Russia'}
-                },
-                {
-                    id: 3,
-                    followed: false,
-                    photoUrl: 'https://i.pravatar.cc/150?img=52',
-                    fullName: 'Andrew',
-                    status: 'I am a boss either',
-                    location: {city: 'Kiev', country: 'Ukraine'}
-                }
-            ]
-        );
-    }, []);
+    if(users.length < 1) {
+        usersApi.getUsers()
+            .then(res => setUsers(res.data.items))
+    }
 
     return (
         <div>
@@ -57,7 +29,7 @@ export const Users: FC<UsersPropsType> = ({users, follow, unfollow, setUsers}) =
                     <div key={u.id}>
                         <span>
                             <div className={s.avatarContainer}>
-                                <img src={u.photoUrl} alt={u.fullName}/>
+                                <img src={u.photos.small || avatarPlaceholder} alt={u.name}/>
                             </div>
                             <div>
                                 {followUnfollowButton}
@@ -65,12 +37,12 @@ export const Users: FC<UsersPropsType> = ({users, follow, unfollow, setUsers}) =
                         </span>
                         <span>
                             <span>
-                                <div>{u.fullName}</div>
+                                <div>{u.name}</div>
                                 <div>{u.status}</div>
                             </span>
                             <span>
-                                <div>{u.location.country}</div>
-                                <div>{u.location.city}</div>
+                                <div>{'u.location.country'}</div>
+                                <div>{'u.location.city'}</div>
                             </span>
                         </span>
                     </div>
