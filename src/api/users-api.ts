@@ -25,7 +25,7 @@ type UsersResponse = {
 }
 
 export const usersApi = {
-    getUsers() {
-        return instance.get<UsersResponse>(`users`);
+    getUsers(count: number, page: number) {
+        return instance.get<UsersResponse>(`users?count=${count}&page=${page}`);
     }
 }
