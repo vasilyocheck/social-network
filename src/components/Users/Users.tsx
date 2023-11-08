@@ -11,8 +11,7 @@ type UsersPropsType = {
 }
 
 export class Users extends React.Component<UsersPropsType>{
-    constructor(props: UsersPropsType) {
-        super(props);
+    componentDidMount() {
         if(this.props.users.length < 1) {
             usersApi.getUsers()
                 .then(res => this.props.setUsers(res.data.items))
