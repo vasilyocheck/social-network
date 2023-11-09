@@ -35,7 +35,7 @@ export const Users: FC<UsersPropsType> = (
                 {pages.map(p => {
                     return (<span key={p}
                                   className={currentPage === p ? s.selectedPage : s.page}
-                                  onClick={(e) => changePageNumber(p)}
+                                  onClick={() => changePageNumber(p)}
                     >{p}</span>);
                 })}
             </div>
