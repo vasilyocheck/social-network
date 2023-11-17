@@ -2,6 +2,7 @@ import s from "./Users.module.css";
 import avatarPlaceholder from "../../assets/img/avatar-placeholder.png";
 import React, {FC} from "react";
 import {UserType} from "../../api/users-api";
+import {NavLink} from "react-router-dom";
 
 type UsersPropsType = {
     totalUsersCount: number
@@ -48,7 +49,9 @@ export const Users: FC<UsersPropsType> = (
                     <div key={u.id}>
                         <span>
                             <div className={s.avatarContainer}>
-                                <img src={u.photos.small || avatarPlaceholder} alt={u.name}/>
+                                <NavLink to={'/profile/' + u.id}>
+                                    <img src={u.photos.small || avatarPlaceholder} alt={u.name}/>
+                                </NavLink>
                             </div>
                             <div>
                                 {followUnfollowButton}

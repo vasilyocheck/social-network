@@ -5,13 +5,12 @@ import {
     followAC,
     setCurrentPageAC,
     setTotalUsersCountAC,
-    setUsersAC, toggleIsFetchingAC,
+    setUsersAC,
+    toggleIsFetchingAC,
     unfollowAC
 } from "../../redux/reducers/users-reducer";
 import {usersApi, UserType} from "../../api/users-api";
 import {Users} from "./Users";
-import preloader from '../../assets/img/preloader.gif';
-import s from './Users.module.css'
 import {Preloader} from "../common/Preloader/Preloader";
 
 type UsersAPIComponentPropsType = {
@@ -51,6 +50,7 @@ export class UsersAPIComponent extends React.Component<UsersAPIComponentPropsTyp
                 this.props.toggleIsFetching(false);
             })
     }
+
 
     render() {
         return (

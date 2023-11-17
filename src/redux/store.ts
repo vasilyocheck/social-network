@@ -27,7 +27,8 @@ export const store: StoreState = {
                 {id: 1, postText: 'Post 1 message goes here', likesCount: 15},
                 {id: 2, postText: `It's a lorem ipsum message for post`, likesCount: 23}
             ],
-            newPostText: 'it-kamasutra'
+            newPostText: 'it-kamasutra',
+            profile: null
         },
         dialoguesPage: {
             dialogues: [

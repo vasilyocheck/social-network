@@ -1,5 +1,6 @@
+import {UserProfileType} from "../../api/profile-api";
 
-export type GeneralProfileReducerType = AddPostType | UpdateNewPostTextType;
+export type GeneralProfileReducerType = AddPostType | UpdateNewPostTextType | SetUserProfileACType;
 
 export type PostsType = {
     id: number
@@ -10,6 +11,7 @@ export type PostsType = {
 export type ProfilePageType = {
     posts: PostsType[]
     newPostText: string
+    profile: UserProfileType | null
 }
 
 const initialState = {
@@ -17,11 +19,15 @@ const initialState = {
         {id: 1, postText: 'Post 1 message goes here', likesCount: 15},
         {id: 2, postText: `It's a lorem ipsum message for post`, likesCount: 23}
     ],
-    newPostText: 'it-kamasutra'
+    newPostText: 'it-kamasutra',
+    profile: null
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: GeneralProfileReducerType): ProfilePageType => {
     switch (action.type) {
+        case "SET-USER-PROFILE": {
+            return {...state, profile: action.profile}
+        }
         case 'ADD-POST': {
             const newItem: PostsType = {
                 id: state.posts.length + 1,
@@ -54,5 +60,13 @@ export const updateNewPostTextAC = (newPostText: string) => {
         payload: {
             newPostText
         }
+    } as const
+}
+
+type SetUserProfileACType = ReturnType<typeof setUserProfileAC>
+export const setUserProfileAC = (profile: UserProfileType) => {
+    return {
+        type: 'SET-USER-PROFILE',
+        profile
     } as const
 }
