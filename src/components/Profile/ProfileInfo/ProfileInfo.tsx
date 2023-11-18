@@ -17,6 +17,8 @@ export const ProfileInfo: FC<ProfileInfoPropsType> = ({profile}) => {
             </div>
             <div className={s.descriptionBlock}>
                 <img src={profile?.photos.large} alt='avatar' className={s.largeAvatar}/>
+                <div>{profile.fullName}</div>
+                <div>{profile.aboutMe}</div>
 
             </div>
         </div>
