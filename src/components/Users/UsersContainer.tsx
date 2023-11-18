@@ -50,7 +50,9 @@ export class UsersAPIComponent extends React.Component<UsersAPIComponentPropsTyp
                 this.props.toggleIsFetching(false);
             })
     }
-
+    componentWillUnmount() {
+        this.props.toggleIsFetching(false);
+    }
 
     render() {
         return (

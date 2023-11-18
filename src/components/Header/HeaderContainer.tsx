@@ -21,7 +21,7 @@ export const HeaderContainer = () => {
     console.log(login);
     useEffect(() => {
         dispatch(setAuthUserDataTC())
-    }, []);
+    }, [dispatch]);
     return (
         <Header login={login} isAuth={isAuth} />
     );
