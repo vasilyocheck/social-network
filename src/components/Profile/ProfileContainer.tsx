@@ -34,7 +34,7 @@ function withRouter(Component: any) {
 export class ProfileAPIComponent extends React.Component<ProfileAPIComponentType> {
 
     componentDidMount() {
-        const userId = Number(this.props.router.params.userId) || 30268;
+        const userId = Number(this.props.router.params.userId) || 30104;
         profileAPI.getProfile(userId)
             .then(res => this.props.setUserProfile(res.data))
     }
