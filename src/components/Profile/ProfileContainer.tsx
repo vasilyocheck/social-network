@@ -1,4 +1,4 @@
-import React, {ReactComponentElement} from "react";
+import React from "react";
 import {Profile} from "./Profile";
 import {profileAPI, UserProfileType} from "../../api/profile-api";
 import {useDispatch, useSelector} from "react-redux";
