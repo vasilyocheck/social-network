@@ -1,15 +1,15 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {StoreType} from "../../redux/redux-store";
+import {useSelector} from "react-redux";
+import {StoreType, useAppDispatch} from "../../redux/redux-store";
 import {
-    followAC,
+    followTC,
     setCurrentPageAC,
     setTotalUsersCountAC,
     setUsersAC,
     toggleIsFetchingAC,
-    unfollowAC
+    unfollowTC
 } from "../../redux/reducers/users-reducer";
-import {usersApi, UserType} from "../../api/users-api";
+import {usersAPI, UserType} from "../../api/users-api";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 
@@ -31,7 +31,7 @@ export class UsersAPIComponent extends React.Component<UsersAPIComponentPropsTyp
     componentDidMount() {
         this.props.toggleIsFetching(true);
         if (this.props.users.length < 1) {
-            usersApi.getUsers(this.props.pageSize, this.props.currentPage)
+            usersAPI.getUsers(this.props.pageSize, this.props.currentPage)
                 .then(res => {
                     this.props.setUsers(res.data.items);
                     this.props.setTotalUsersCount(res.data.totalCount);
@@ -44,15 +44,17 @@ export class UsersAPIComponent extends React.Component<UsersAPIComponentPropsTyp
         console.log('invoked inside UsersAPIComponent')
         this.props.setCurrentPage(pageNumber);
         this.props.toggleIsFetching(true);
-        usersApi.getUsers(this.props.pageSize, pageNumber)
+        usersAPI.getUsers(this.props.pageSize, pageNumber)
             .then(res => {
                 this.props.setUsers(res.data.items);
                 this.props.toggleIsFetching(false);
             })
     }
+
     componentWillUnmount() {
         this.props.toggleIsFetching(false);
     }
+
 
     render() {
         return (
@@ -73,7 +75,7 @@ export class UsersAPIComponent extends React.Component<UsersAPIComponentPropsTyp
 
 
 export const UsersContainer = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const users = useSelector<StoreType, UserType[]>(
         state => state.usersPage.users);
     const pageSize = useSelector<StoreType, number>(state => state.usersPage.pageSize)
@@ -81,10 +83,10 @@ export const UsersContainer = () => {
     const currentPage = useSelector<StoreType, number>(state => state.usersPage.currentPage);
     const isFetching = useSelector<StoreType, boolean>(state => state.usersPage.isFetching);
     const follow = (userId: number) => {
-        dispatch(followAC(userId));
+        dispatch(followTC(userId));
     }
     const unfollow = (userId: number) => {
-        dispatch(unfollowAC(userId));
+        dispatch(unfollowTC(userId));
     }
 
     const setUsers = (newUsers: UserType[]) => {

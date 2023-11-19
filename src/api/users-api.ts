@@ -24,8 +24,14 @@ type UsersResponse = {
     error: string
 }
 
-export const usersApi = {
+export const usersAPI = {
     getUsers(count: number, page: number) {
         return instance.get<UsersResponse>(`users?count=${count}&page=${page}`);
+    },
+    followUser(userId: number){
+        return instance.post(`follow/${userId}`);
+    },
+    unfollowUser(userId: number) {
+        return instance.delete(`follow/${userId}`);
     }
 }

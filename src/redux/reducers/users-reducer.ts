@@ -1,4 +1,5 @@
-import {UserType} from "../../api/users-api";
+import {usersAPI, UserType} from "../../api/users-api";
+import {Dispatch} from "redux";
 
 type UsersStateType = {
     users: UserType[]
@@ -95,3 +96,22 @@ export const toggleIsFetchingAC = (isFetching: boolean) => {
         }
     } as const
 }
+
+export const followTC = (userId: number) => async (dispatch: Dispatch) => {
+    const response = await usersAPI.followUser(userId);
+    try {
+        dispatch(followAC(userId));
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const unfollowTC = (userId: number) => async (dispatch: Dispatch) => {
+    const response = await usersAPI.unfollowUser(userId);
+    try {
+        dispatch(unfollowAC(userId));
+    } catch (e) {
+        console.log(e);
+    }
+}
+
