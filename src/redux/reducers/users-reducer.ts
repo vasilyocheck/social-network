@@ -1,6 +1,5 @@
 import {usersAPI, UserType} from "../../api/users-api";
 import {Dispatch} from "redux";
-import {AxiosResponse} from "axios";
 
 type UsersStateType = {
     users: UserType[]
