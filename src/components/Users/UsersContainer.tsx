@@ -29,8 +29,8 @@ type UsersAPIComponentPropsType = {
 
 export class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType> {
     componentDidMount() {
-        this.props.toggleIsFetching(true);
         if (this.props.users.length < 1) {
+            this.props.toggleIsFetching(true);
             usersAPI.getUsers(this.props.pageSize, this.props.currentPage)
                 .then(res => {
                     this.props.setUsers(res.data.items);
@@ -50,11 +50,6 @@ export class UsersAPIComponent extends React.Component<UsersAPIComponentPropsTyp
                 this.props.toggleIsFetching(false);
             })
     }
-
-    componentWillUnmount() {
-        this.props.toggleIsFetching(false);
-    }
-
 
     render() {
         return (
