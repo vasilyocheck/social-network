@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Header} from "./Header";
-import {useAppDispatch, useAppSelector} from "../../redux/redux-store";
 import {setAuthUserDataTC} from "../../redux/reducers/auth-reducer";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
 /*export class HeaderContainer extends React.Component {
     componentDidMount() {
 

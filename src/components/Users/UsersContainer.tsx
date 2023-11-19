@@ -1,6 +1,6 @@
 import React from 'react';
 import {useSelector} from "react-redux";
-import {StoreType, useAppDispatch} from "../../redux/redux-store";
+import {StoreType} from "../../redux/redux-store";
 import {
     followTC,
     setCurrentPageAC,
@@ -12,6 +12,7 @@ import {
 import {usersAPI, UserType} from "../../api/users-api";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
+import {useAppDispatch} from "../../app/hooks";
 
 type UsersAPIComponentPropsType = {
     users: UserType[]

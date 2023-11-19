@@ -1,11 +1,10 @@
-import {AnyAction, applyMiddleware, combineReducers, legacy_createStore} from "redux";
-import {profileReducer} from "./reducers/profile-reducer";
-import {dialoguesReducer} from "./reducers/dialogues-reducer";
+import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
+import {GeneralProfileReducerType, profileReducer} from "./reducers/profile-reducer";
+import {dialoguesReducer, GeneralDialoguesReducer} from "./reducers/dialogues-reducer";
 import {sidebarReducer} from "./reducers/sidebar-reducer";
-import {usersReducer} from "./reducers/users-reducer";
-import {authReducer} from "./reducers/auth-reducer";
-import thunk, {ThunkDispatch} from "redux-thunk";
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {usersReducer, UsersReducerActionType} from "./reducers/users-reducer";
+import {authReducer, MainAuthActionType} from "./reducers/auth-reducer";
+import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 
 export type StoreType = ReturnType<typeof reducers>
 
@@ -20,6 +19,8 @@ const reducers = combineReducers({
 
 export const store = legacy_createStore(reducers, applyMiddleware(thunk));
 
-type AppDispatchType = ThunkDispatch<StoreType, unknown, AnyAction>
-export const useAppDispatch = useDispatch<AppDispatchType>
-export const useAppSelector: TypedUseSelectorHook<StoreType> = useSelector;
+export type AppActionsType = MainAuthActionType | GeneralDialoguesReducer | GeneralProfileReducerType
+    | UsersReducerActionType;
+export type AppDispatchType = ThunkDispatch<StoreType, unknown, AppActionsType>
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, StoreType, unknown, any>
+

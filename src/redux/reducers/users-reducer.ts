@@ -1,5 +1,5 @@
 import {usersAPI, UserType} from "../../api/users-api";
-import {Dispatch} from "redux";
+import {AppThunk} from "../redux-store";
 
 type UsersStateType = {
     users: UserType[]
@@ -34,7 +34,7 @@ export const usersReducer = (state: UsersStateType = initialState, action: Users
     }
 }
 
-type UsersReducerActionType = FollowACType | UnfollowACType | SetUsersACType | SetCurrentPageACType
+export type UsersReducerActionType = FollowACType | UnfollowACType | SetUsersACType | SetCurrentPageACType
     | SetTotalUsersCountACType | ToggleIsFetchingType;
 
 type FollowACType = ReturnType<typeof followAC>
@@ -97,7 +97,7 @@ export const toggleIsFetchingAC = (isFetching: boolean) => {
     } as const
 }
 
-export const followTC = (userId: number) => async (dispatch: Dispatch) => {
+export const followTC = (userId: number): AppThunk => async dispatch => {
     const response = await usersAPI.followUser(userId);
     try {
         dispatch(followAC(userId));
@@ -106,7 +106,7 @@ export const followTC = (userId: number) => async (dispatch: Dispatch) => {
     }
 }
 
-export const unfollowTC = (userId: number) => async (dispatch: Dispatch) => {
+export const unfollowTC = (userId: number): AppThunk => async dispatch => {
     const response = await usersAPI.unfollowUser(userId);
     try {
         dispatch(unfollowAC(userId));
