@@ -1,14 +1,14 @@
 import React from "react";
 import {Profile} from "./Profile";
-import {profileAPI, UserProfileType} from "../../api/profile-api";
-import {useDispatch, useSelector} from "react-redux";
+import {UserProfileType} from "../../api/profile-api";
 import {StoreType} from "../../redux/redux-store";
-import {setUserProfileAC} from "../../redux/reducers/profile-reducer";
+import {setUserProfileTC} from "../../redux/reducers/profile-reducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
 
 type ProfileAPIComponentType = {
     profile: UserProfileType | null
-    setUserProfile: (profile: UserProfileType) => void
+    setUserProfile: (userId: number) => void
     router: {
         location: {pathname: string, search: string, hash: string, state: null | string, key: string}
         navigate: any
@@ -35,8 +35,7 @@ export class ProfileAPIComponent extends React.Component<ProfileAPIComponentType
 
     componentDidMount() {
         const userId = Number(this.props.router.params.userId) || 30104;
-        profileAPI.getProfile(userId)
-            .then(res => this.props.setUserProfile(res.data))
+        this.props.setUserProfile(userId);
     }
 
     render() {
@@ -49,10 +48,10 @@ export class ProfileAPIComponent extends React.Component<ProfileAPIComponentType
 const WithUrlDataContainerComponent = withRouter(ProfileAPIComponent);
 
 export const ProfileContainer = () => {
-    const dispatch = useDispatch();
-    const profile = useSelector<StoreType, UserProfileType | null>(state => state.profilePage.profile);
-    const setUserProfile = (profile: UserProfileType) => {
-        dispatch(setUserProfileAC(profile));
+    const dispatch = useAppDispatch();
+    const profile = useAppSelector((state: StoreType) => state.profilePage.profile);
+    const setUserProfile = (userId: number) => {
+        dispatch(setUserProfileTC(userId));
     }
 
     return(

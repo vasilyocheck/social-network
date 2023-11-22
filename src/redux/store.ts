@@ -19,7 +19,6 @@ export type StoreState = {
 export type GeneralActionType = GeneralDialoguesReducer
     | GeneralProfileReducerType;
 
-
 export const store: StoreState = {
     _state: {
         profilePage: {

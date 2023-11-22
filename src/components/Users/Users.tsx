@@ -43,9 +43,10 @@ export const Users: FC<UsersPropsType> = (
                 })}
             </div>
             {users.map(u => {
+                const followBtnDisabledStatus = isFollowingInProgress.some(id => id === u.id);
                 const followUnfollowButton = u.followed
-                    ? <button onClick={() => unfollow(u.id)} disabled={isFollowingInProgress.some(id => id === u.id)}>Unfollow</button>
-                    : <button onClick={() => follow(u.id)} disabled={isFollowingInProgress.some(id => id === u.id)}>Follow</button>;
+                    ? <button onClick={() => unfollow(u.id)} disabled={followBtnDisabledStatus}>Unfollow</button>
+                    : <button onClick={() => follow(u.id)} disabled={followBtnDisabledStatus}>Follow</button>;
 
                 return (
                     <div key={u.id}>

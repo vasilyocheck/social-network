@@ -1,4 +1,5 @@
-import {UserProfileType} from "../../api/profile-api";
+import {profileAPI, UserProfileType} from "../../api/profile-api";
+import {Dispatch} from "redux";
 
 export type GeneralProfileReducerType = AddPostType | UpdateNewPostTextType | SetUserProfileACType;
 
@@ -69,4 +70,13 @@ export const setUserProfileAC = (profile: UserProfileType) => {
         type: 'SET-USER-PROFILE',
         profile
     } as const
+}
+
+export const setUserProfileTC = (userId: number) => async (dispatch: Dispatch) => {
+    try {
+        const response = await profileAPI.getProfile(userId);
+        dispatch(setUserProfileAC(response.data));
+    } catch (e) {
+        console.log(e);
+    }
 }

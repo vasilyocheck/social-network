@@ -1,15 +1,8 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {StoreType} from "../../redux/redux-store";
-import {
-    followTC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    toggleIsFetchingAC,
-    unfollowTC
-} from "../../redux/reducers/users-reducer";
-import {usersAPI, UserType} from "../../api/users-api";
+import {followTC, getUsersTC, setTotalUsersCountAC, unfollowTC} from "../../redux/reducers/users-reducer";
+import {UserType} from "../../api/users-api";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
@@ -21,36 +14,19 @@ type UsersAPIComponentPropsType = {
     currentPage: number
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    setUsers: (newUsers: UserType[]) => void
-    setCurrentPage: (newCurrentPage: number) => void
+    setUsers: (pageSize: number, currentPage: number) => void
     setTotalUsersCount: (totalCount: number) => void
     isFetching: boolean
-    toggleIsFetching: (isFetching: boolean) => void
     isFollowingInProgress: number[]
 }
 
 export class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType> {
     componentDidMount() {
-        if (this.props.users.length < 1) {
-            this.props.toggleIsFetching(true);
-            usersAPI.getUsers(this.props.pageSize, this.props.currentPage)
-                .then(res => {
-                    this.props.setUsers(res.data.items);
-                    this.props.setTotalUsersCount(res.data.totalCount);
-                    this.props.toggleIsFetching(false);
-                })
-        }
+        this.props.setUsers(this.props.pageSize, this.props.currentPage);
     }
 
     handleChangePageNumber(pageNumber: number) {
-        console.log('invoked inside UsersAPIComponent')
-        this.props.setCurrentPage(pageNumber);
-        this.props.toggleIsFetching(true);
-        usersAPI.getUsers(this.props.pageSize, pageNumber)
-            .then(res => {
-                this.props.setUsers(res.data.items);
-                this.props.toggleIsFetching(false);
-            })
+        this.props.setUsers(this.props.pageSize, pageNumber);
     }
 
     render() {
@@ -74,33 +50,23 @@ export class UsersAPIComponent extends React.Component<UsersAPIComponentPropsTyp
 
 export const UsersContainer = () => {
     const dispatch = useAppDispatch();
-    const users = useSelector<StoreType, UserType[]>(
-        state => state.usersPage.users);
-    const pageSize = useSelector<StoreType, number>(state => state.usersPage.pageSize)
-    const totalUsersCount = useSelector<StoreType, number>(state => state.usersPage.totalUsersCount);
-    const currentPage = useSelector<StoreType, number>(state => state.usersPage.currentPage);
-    const isFetching = useSelector<StoreType, boolean>(state => state.usersPage.isFetching);
-    const isFollowing = useAppSelector(state => state.usersPage.isFollowingInProgress);
+    const users = useAppSelector((state: StoreType) => state.usersPage.users);
+    const pageSize = useAppSelector((state: StoreType) => state.usersPage.pageSize);
+    const totalUsersCount = useAppSelector((state: StoreType) => state.usersPage.totalUsersCount);
+    const currentPage = useAppSelector((state: StoreType) => state.usersPage.currentPage);
+    const isFetching = useAppSelector((state: StoreType) => state.usersPage.isFetching);
+    const isFollowing = useAppSelector((state: StoreType) => state.usersPage.isFollowingInProgress);
     const follow = (userId: number) => {
         dispatch(followTC(userId));
     }
     const unfollow = (userId: number) => {
         dispatch(unfollowTC(userId));
     }
-
-    const setUsers = (newUsers: UserType[]) => {
-        dispatch(setUsersAC(newUsers));
+    const setUsers = (pageSize: number, currentPage: number) => {
+        dispatch(getUsersTC(pageSize, currentPage));
     }
-
-    const setCurrentPage = (newCurrentPage: number) => {
-        dispatch(setCurrentPageAC(newCurrentPage));
-    }
-
     const setTotalUsersCount = (totalCount: number) => {
         dispatch(setTotalUsersCountAC(totalCount));
-    }
-    const toggleIsFetching = (isFetching: boolean) => {
-        dispatch(toggleIsFetchingAC(isFetching));
     }
 
     return (
@@ -111,10 +77,8 @@ export const UsersContainer = () => {
                            pageSize={pageSize}
                            totalUsersCount={totalUsersCount}
                            currentPage={currentPage}
-                           setCurrentPage={setCurrentPage}
                            setTotalUsersCount={setTotalUsersCount}
                            isFetching={isFetching}
-                           toggleIsFetching={toggleIsFetching}
                            isFollowingInProgress={isFollowing}
         />
     );

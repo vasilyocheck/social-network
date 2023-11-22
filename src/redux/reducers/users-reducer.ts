@@ -1,5 +1,6 @@
 import {usersAPI, UserType} from "../../api/users-api";
 import {AppThunk} from "../redux-store";
+import {Dispatch} from "redux";
 
 type UsersStateType = {
     users: UserType[]
@@ -51,10 +52,7 @@ export const usersReducer = (state: UsersStateType = initialState, action: Users
     }
 }
 
-export type UsersReducerActionType = FollowACType | UnfollowACType | SetUsersACType | SetCurrentPageACType
-    | SetTotalUsersCountACType | ToggleIsFetchingType | SetIsFollowingInProgressACType;
 
-type FollowACType = ReturnType<typeof followAC>
 export const followAC = (userId: number) => {
     return {
         type: 'USERS/FOLLOW',
@@ -63,8 +61,6 @@ export const followAC = (userId: number) => {
         }
     } as const
 }
-
-type UnfollowACType = ReturnType<typeof unfollowAC>
 export const unfollowAC = (userId: number) => {
     return {
         type: 'USERS/UNFOLLOW',
@@ -73,8 +69,6 @@ export const unfollowAC = (userId: number) => {
         }
     } as const
 }
-
-type SetUsersACType = ReturnType<typeof setUsersAC>
 export const setUsersAC = (users: UserType[]) => {
     return {
         type: 'USERS/SET_USERS',
@@ -83,8 +77,6 @@ export const setUsersAC = (users: UserType[]) => {
         }
     } as const
 }
-
-type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>
 export const setCurrentPageAC = (currentPage: number) => {
     return {
         type: 'USERS/SET_CURRENT_PAGE',
@@ -93,8 +85,6 @@ export const setCurrentPageAC = (currentPage: number) => {
         }
     } as const
 }
-
-type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>
 export const setTotalUsersCountAC = (totalCount: number) => {
     return {
         type: 'USERS/SET_TOTAL_USERS_COUNT',
@@ -103,8 +93,6 @@ export const setTotalUsersCountAC = (totalCount: number) => {
         }
     } as const
 }
-
-type ToggleIsFetchingType = ReturnType<typeof toggleIsFetchingAC>
 export const toggleIsFetchingAC = (isFetching: boolean) => {
     return {
         type: 'USERS/TOGGLE-IS-FETCHING',
@@ -113,8 +101,6 @@ export const toggleIsFetchingAC = (isFetching: boolean) => {
         }
     } as const
 }
-
-type SetIsFollowingInProgressACType = ReturnType<typeof toggleIsFollowingInProgressAC>
 export const toggleIsFollowingInProgressAC = (userId: number, isFetching: boolean) => {
     return {
         type: 'USERS/IS-FOLLOWING-IN-PROGRESS',
@@ -125,6 +111,16 @@ export const toggleIsFollowingInProgressAC = (userId: number, isFetching: boolea
     } as const
 }
 
+export const getUsersTC = (pageSize: number, currentPage: number) => (dispatch: Dispatch) => {
+    dispatch(toggleIsFetchingAC(true));
+    usersAPI.getUsers(pageSize, currentPage)
+        .then(res => {
+            dispatch(setUsersAC(res.data.items));
+            dispatch(setTotalUsersCountAC(res.data.totalCount));
+            dispatch(setCurrentPageAC(currentPage));
+            dispatch(toggleIsFetchingAC(false));
+        })
+}
 export const followTC = (userId: number): AppThunk => async dispatch => {
     dispatch(toggleIsFollowingInProgressAC(userId, true));
     const response = await usersAPI.followUser(userId);
@@ -136,7 +132,6 @@ export const followTC = (userId: number): AppThunk => async dispatch => {
         dispatch(toggleIsFollowingInProgressAC(userId, false));
     }
 }
-
 export const unfollowTC = (userId: number): AppThunk => async dispatch => {
     dispatch(toggleIsFollowingInProgressAC(userId, true));
     const response = await usersAPI.unfollowUser(userId);
@@ -149,3 +144,13 @@ export const unfollowTC = (userId: number): AppThunk => async dispatch => {
     }
 }
 
+export type UsersReducerActionType = FollowACType | UnfollowACType | SetUsersACType | SetCurrentPageACType
+    | SetTotalUsersCountACType | ToggleIsFetchingType | SetIsFollowingInProgressACType;
+
+type SetIsFollowingInProgressACType = ReturnType<typeof toggleIsFollowingInProgressAC>;
+type ToggleIsFetchingType = ReturnType<typeof toggleIsFetchingAC>;
+type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>;
+type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>;
+type SetUsersACType = ReturnType<typeof setUsersAC>;
+type UnfollowACType = ReturnType<typeof unfollowAC>;
+type FollowACType = ReturnType<typeof followAC>;
