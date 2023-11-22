@@ -1,5 +1,4 @@
 import React from 'react';
-import {useSelector} from "react-redux";
 import {StoreType} from "../../redux/redux-store";
 import {followTC, getUsersTC, setTotalUsersCountAC, unfollowTC} from "../../redux/reducers/users-reducer";
 import {UserType} from "../../api/users-api";
