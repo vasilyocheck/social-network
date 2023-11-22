@@ -12,7 +12,7 @@ import {
 import {usersAPI, UserType} from "../../api/users-api";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
-import {useAppDispatch} from "../../app/hooks";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
 
 type UsersAPIComponentPropsType = {
     users: UserType[]
@@ -26,6 +26,7 @@ type UsersAPIComponentPropsType = {
     setTotalUsersCount: (totalCount: number) => void
     isFetching: boolean
     toggleIsFetching: (isFetching: boolean) => void
+    isFollowingInProgress: number[]
 }
 
 export class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType> {
@@ -63,6 +64,7 @@ export class UsersAPIComponent extends React.Component<UsersAPIComponentPropsTyp
                        users={this.props.users}
                        follow={this.props.follow}
                        unfollow={this.props.unfollow}
+                       isFollowingInProgress={this.props.isFollowingInProgress}
                 />
             </>
         );
@@ -78,6 +80,7 @@ export const UsersContainer = () => {
     const totalUsersCount = useSelector<StoreType, number>(state => state.usersPage.totalUsersCount);
     const currentPage = useSelector<StoreType, number>(state => state.usersPage.currentPage);
     const isFetching = useSelector<StoreType, boolean>(state => state.usersPage.isFetching);
+    const isFollowing = useAppSelector(state => state.usersPage.isFollowingInProgress);
     const follow = (userId: number) => {
         dispatch(followTC(userId));
     }
@@ -112,6 +115,7 @@ export const UsersContainer = () => {
                            setTotalUsersCount={setTotalUsersCount}
                            isFetching={isFetching}
                            toggleIsFetching={toggleIsFetching}
+                           isFollowingInProgress={isFollowing}
         />
     );
 };

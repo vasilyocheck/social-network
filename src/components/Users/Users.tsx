@@ -12,6 +12,7 @@ type UsersPropsType = {
     users: UserType[]
     follow: (userId: number) => void
     unfollow: (userId: number) => void
+    isFollowingInProgress: number[]
 }
 
 export const Users: FC<UsersPropsType> = (
@@ -22,7 +23,8 @@ export const Users: FC<UsersPropsType> = (
         changePageNumber,
         users,
         follow,
-        unfollow
+        unfollow,
+        isFollowingInProgress
     }) => {
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
     const pages = [];
@@ -42,8 +44,8 @@ export const Users: FC<UsersPropsType> = (
             </div>
             {users.map(u => {
                 const followUnfollowButton = u.followed
-                    ? <button onClick={() => unfollow(u.id)}>Unfollow</button>
-                    : <button onClick={() => follow(u.id)}>Follow</button>;
+                    ? <button onClick={() => unfollow(u.id)} disabled={isFollowingInProgress.some(id => id === u.id)}>Unfollow</button>
+                    : <button onClick={() => follow(u.id)} disabled={isFollowingInProgress.some(id => id === u.id)}>Follow</button>;
 
                 return (
                     <div key={u.id}>
