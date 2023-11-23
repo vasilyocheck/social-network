@@ -3,7 +3,7 @@ import {Profile} from "./Profile";
 import {UserProfileType} from "../../api/profile-api";
 import {StoreType} from "../../redux/redux-store";
 import {setUserProfileTC} from "../../redux/reducers/profile-reducer";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {Navigate, useLocation, useNavigate, useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 
 type ProfileAPIComponentType = {
@@ -14,6 +14,7 @@ type ProfileAPIComponentType = {
         navigate: any
         params: {userId: string}
     }
+    isAuth: boolean
 }
 
 function withRouter(Component: any) {
@@ -38,7 +39,11 @@ export class ProfileAPIComponent extends React.Component<ProfileAPIComponentType
         this.props.setUserProfile(userId);
     }
 
+
     render() {
+        if(!this.props.isAuth) {
+            return <Navigate to={'/login'} />
+        }
         return (
             <Profile profile={this.props.profile}/>
         );
@@ -50,11 +55,12 @@ const WithUrlDataContainerComponent = withRouter(ProfileAPIComponent);
 export const ProfileContainer = () => {
     const dispatch = useAppDispatch();
     const profile = useAppSelector((state: StoreType) => state.profilePage.profile);
+    const isAuth = useAppSelector(state => state.auth.isAuth);
     const setUserProfile = (userId: number) => {
         dispatch(setUserProfileTC(userId));
     }
 
     return(
-        <WithUrlDataContainerComponent profile={profile} setUserProfile={setUserProfile}/>
+        <WithUrlDataContainerComponent profile={profile} setUserProfile={setUserProfile} isAuth={isAuth}/>
     );
 }

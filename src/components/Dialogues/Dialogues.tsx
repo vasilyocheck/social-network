@@ -3,14 +3,22 @@ import s from './Dialogues.module.css'
 import {DialogueItem} from "./DialogueItem/DialogueItem";
 import {Message} from "./Message/Message";
 import {DialoguesPageType} from "../../redux/reducers/dialogues-reducer";
+import {Navigate} from "react-router-dom";
 
 type DialoguesPropsType = {
     dialoguesPage: DialoguesPageType
     updateMessageBody: (newMessageBody: string) => void
     addMessage: () => void
+    isAuth: boolean
 }
 
-export const Dialogues: React.FC<DialoguesPropsType> = ({dialoguesPage, updateMessageBody, addMessage}) => {
+export const Dialogues: React.FC<DialoguesPropsType> = (
+    {
+        dialoguesPage,
+        updateMessageBody,
+        addMessage,
+        isAuth
+    }) => {
 
     const dialoguesElements = dialoguesPage.dialogues.map(d => <DialogueItem name={d.name} id={d.id} key={d.id} />)
     const messagesElements = dialoguesPage.messages.map(m => <Message message={m.message} id={m.id} key={m.id}/>);
@@ -24,6 +32,10 @@ export const Dialogues: React.FC<DialoguesPropsType> = ({dialoguesPage, updateMe
     }
     const onAddMessage = () => {
         addMessage();
+    }
+
+    if (!isAuth) {
+        return <Navigate to={'/login'} />
     }
 
     return (

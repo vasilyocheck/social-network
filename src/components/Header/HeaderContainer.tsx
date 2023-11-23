@@ -18,7 +18,6 @@ export const HeaderContainer = () => {
     const dispatch = useAppDispatch();
     const login = useAppSelector(state => state.auth.login);
     const isAuth = useAppSelector(state => state.auth.isAuth);
-    console.log(login);
     useEffect(() => {
         dispatch(setAuthUserDataTC())
     }, [dispatch]);
