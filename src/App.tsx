@@ -10,35 +10,23 @@ import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {HeaderContainer} from "./components/Header/HeaderContainer";
 import {Login} from "./components/Login/Login";
-
+import {WithAuthRedirect} from "./hoc/withAuthRedirect";
 
 const App = () => {
     return (
         <div className="app-wrapper">
             <HeaderContainer/>
-            <NavBar />
+            <NavBar/>
             <div className='app-wrapper-content'>
                 <Routes>
-                    <Route path='*'
-                           element={<ProfileContainer />}/>
-                    <Route path='/profile/:userId'
-                           element={<ProfileContainer />}/>
-                    <Route path='/dialogues'
-                           element={
-                               <DialoguesContainer />
-                    }
-                    />
-                    <Route path='/users'
-                           element={<UsersContainer />} />
-                    <Route path='/news'
-                           element={<News/>}/>
-                    <Route path='/music'
-                           element={<Music/>}/>
-                    <Route path='/settings'
-                           element={<Settings/>}/>
-                    <Route path={'/login'}
-                            element={<Login />}
-                    />
+                    <Route path='*' element={WithAuthRedirect(ProfileContainer)}/>
+                    <Route path='/profile/:userId' element={WithAuthRedirect(ProfileContainer)}/>
+                    <Route path='/dialogues' element={WithAuthRedirect(DialoguesContainer)}/>
+                    <Route path='/users' element={WithAuthRedirect(UsersContainer)}/>
+                    <Route path='/news' element={WithAuthRedirect(News)}/>
+                    <Route path='/music' element={WithAuthRedirect(Music)}/>
+                    <Route path='/settings' element={WithAuthRedirect(Settings)}/>
+                    <Route path={'/login'} element={<Login/>} />
                 </Routes>
             </div>
         </div>

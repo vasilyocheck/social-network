@@ -4,6 +4,8 @@ import {Dialogues} from "./Dialogues";
 import {useDispatch} from "react-redux";
 import {StoreType} from "../../redux/redux-store";
 import {useAppSelector} from "../../app/hooks";
+import {Navigate} from "react-router-dom";
+import {ProfileAPIComponent} from "../Profile/ProfileContainer";
 
 export const DialoguesContainer = () => {
     const dispatch = useDispatch();
@@ -26,3 +28,10 @@ export const DialoguesContainer = () => {
         />
     );
 };
+
+export const AuthRedirectComponent = (props: any) => {
+    if(!props.isAuth) {
+        return <Navigate to={'/login'} />
+    }
+    return <Dialogues {...props} />
+}

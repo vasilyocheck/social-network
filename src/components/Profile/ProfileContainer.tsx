@@ -29,7 +29,6 @@ function withRouter(Component: any) {
             />
         );
     }
-
     return ComponentWithRouterProp;
 }
 export class ProfileAPIComponent extends React.Component<ProfileAPIComponentType> {
@@ -39,23 +38,27 @@ export class ProfileAPIComponent extends React.Component<ProfileAPIComponentType
         this.props.setUserProfile(userId);
     }
 
-
     render() {
-        if(!this.props.isAuth) {
-            return <Navigate to={'/login'} />
-        }
         return (
             <Profile profile={this.props.profile}/>
         );
     }
 }
 
-const WithUrlDataContainerComponent = withRouter(ProfileAPIComponent);
+export const AuthRedirectComponent = (props: any) => {
+    if(!props.isAuth) {
+        return <Navigate to={'/login'} />
+    }
+    console.log(props.isAuth, 'тут должен быть статус аутентификации')
+    return <ProfileAPIComponent {...props} />
+}
+
+const WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);
 
 export const ProfileContainer = () => {
     const dispatch = useAppDispatch();
     const profile = useAppSelector((state: StoreType) => state.profilePage.profile);
-    const isAuth = useAppSelector(state => state.auth.isAuth);
+    const isAuth = useAppSelector((state: StoreType) => state.auth.isAuth);
     const setUserProfile = (userId: number) => {
         dispatch(setUserProfileTC(userId));
     }
@@ -64,3 +67,4 @@ export const ProfileContainer = () => {
         <WithUrlDataContainerComponent profile={profile} setUserProfile={setUserProfile} isAuth={isAuth}/>
     );
 }
+

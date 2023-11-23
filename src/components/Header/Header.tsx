@@ -15,7 +15,6 @@ export const Header: FC<HeaderPropsType> = ({login, isAuth}) => {
                 {isAuth
                     ?<div>{login}</div>
                     :<NavLink to={'/login'}>Login</NavLink>}
-
             </div>
         </header>
     );
