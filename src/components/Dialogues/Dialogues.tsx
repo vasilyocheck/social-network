@@ -20,8 +20,10 @@ export const Dialogues: React.FC<DialoguesPropsType> = (
         isAuth
     }) => {
 
-    const dialoguesElements = dialoguesPage.dialogues.map(d => <DialogueItem name={d.name} id={d.id} key={d.id} />)
-    const messagesElements = dialoguesPage.messages.map(m => <Message message={m.message} id={m.id} key={m.id}/>);
+    const dialoguesElements = dialoguesPage.dialogues.map(d =>
+        <DialogueItem name={d.name} id={d.id} key={d.id} />)
+    const messagesElements = dialoguesPage.messages.map(m =>
+        <Message message={m.message} id={m.id} key={m.id}/>);
 
 
     const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {

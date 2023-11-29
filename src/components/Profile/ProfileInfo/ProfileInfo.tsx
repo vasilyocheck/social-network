@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import s from './ProfileInfo.module.css'
 import {UserProfileType} from "../../../api/profile-api";
 import {Preloader} from "../../common/Preloader/Preloader";
+import {ProfileStatus} from "../ProfileStatus/ProfileStatus";
 
 type ProfileInfoPropsType = {
     profile: UserProfileType | null
@@ -12,14 +13,14 @@ export const ProfileInfo: FC<ProfileInfoPropsType> = ({profile}) => {
     }
     return (
         <div>
-            <div>
+            {/*<div>
                 <img src={'https://t3.ftcdn.net/jpg/01/62/85/00/360_F_162850009_lnHxshkJUH36xjM3Ysi8gwAYwUBOaRWB.jpg'} alt={'background'}/>
-            </div>
+            </div>*/}
             <div className={s.descriptionBlock}>
                 <img src={profile?.photos.large} alt='avatar' className={s.largeAvatar}/>
+                <ProfileStatus status={'Hello my dear friends...'}/>
                 <div>{profile.fullName}</div>
                 <div>{profile.aboutMe}</div>
-
             </div>
         </div>
     );
