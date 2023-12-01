@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -32,8 +32,21 @@ export type UserProfileType = {
     }
 }
 
+export type ResponseType<D ={}> ={
+    resultCode: number
+    messages: string[]
+    fieldsErrors: string[]
+    data: D
+}
+
 export const profileAPI = {
     getProfile(userId: number) {
         return instance.get<UserProfileType>(`profile/${userId}`);
+    },
+    getStatus(userId: number) {
+        return instance.get<string>(`/profile/status/${userId}`)
+    },
+    updateStatus(status: string) {
+        return instance.put<ResponseType, AxiosResponse<ResponseType>, {status: string}>(`profile/status`, {status});
     }
 }

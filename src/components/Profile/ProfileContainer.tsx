@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Profile} from "./Profile";
 import {UserProfileType} from "../../api/profile-api";
 import {StoreType} from "../../redux/redux-store";
-import {setUserProfileTC} from "../../redux/reducers/profile-reducer";
+import {setProfileStatusTC, setUserProfileTC, updateStatusTC} from "../../redux/reducers/profile-reducer";
 import {Navigate, useLocation, useNavigate, useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 
@@ -15,6 +15,8 @@ type ProfileAPIComponentType = {
         params: {userId: string}
     }
     isAuth: boolean
+    profileStatus: string
+    updateStatus: (status: string) => void
 }
 
 function withRouter(Component: any) {
@@ -40,7 +42,7 @@ export class ProfileAPIComponent extends React.Component<ProfileAPIComponentType
 
     render() {
         return (
-            <Profile profile={this.props.profile}/>
+            <Profile profile={this.props.profile} profileStatus={this.props.profileStatus} updateStatus={this.props.updateStatus}/>
         );
     }
 }
@@ -59,12 +61,25 @@ export const ProfileContainer = () => {
     const dispatch = useAppDispatch();
     const profile = useAppSelector((state: StoreType) => state.profilePage.profile);
     const isAuth = useAppSelector((state: StoreType) => state.auth.isAuth);
+    const profileStatus = useAppSelector((state: StoreType) => state.profilePage.profileStatus);
+    useEffect(() => {
+        dispatch(setProfileStatusTC(30104));
+    }, []);
+
     const setUserProfile = (userId: number) => {
         dispatch(setUserProfileTC(userId));
     }
+    const updateStatus = (status: string) => {
+        dispatch(updateStatusTC(status));
+    }
 
     return(
-        <WithUrlDataContainerComponent profile={profile} setUserProfile={setUserProfile} isAuth={isAuth}/>
+        <WithUrlDataContainerComponent profile={profile}
+                                       setUserProfile={setUserProfile}
+                                       isAuth={isAuth}
+                                       profileStatus={profileStatus}
+                                       updateStatus={updateStatus}
+        />
     );
 }
 

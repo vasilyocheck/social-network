@@ -19,7 +19,7 @@ const App = () => {
             <NavBar/>
             <div className='app-wrapper-content'>
                 <Routes>
-                    <Route path='*' element={WithAuthRedirect(ProfileContainer)}/>
+                    <Route path='/' element={WithAuthRedirect(ProfileContainer)}/>
                     <Route path='/profile/:userId' element={WithAuthRedirect(ProfileContainer)}/>
                     <Route path='/dialogues' element={WithAuthRedirect(DialoguesContainer)}/>
                     <Route path='/users' element={WithAuthRedirect(UsersContainer)}/>

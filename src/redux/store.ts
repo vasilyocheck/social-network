@@ -27,7 +27,8 @@ export const store: StoreState = {
                 {id: 2, postText: `It's a lorem ipsum message for post`, likesCount: 23}
             ],
             newPostText: 'it-kamasutra',
-            profile: null
+            profile: null,
+            profileStatus: ''
         },
         dialoguesPage: {
             dialogues: [
@@ -56,7 +57,8 @@ export const store: StoreState = {
                 {id: 5, name: 'Masha', pic: 'https://i.pravatar.cc/150?img=46'},
                 {id: 6, name: 'Vova', pic: 'https://i.pravatar.cc/150?img=50'}
             ]
-        }
+        },
+
     },
     _callSubscriber(state: StoreType) {
         console.log('state is changed');
