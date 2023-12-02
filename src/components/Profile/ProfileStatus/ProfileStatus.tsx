@@ -27,6 +27,7 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
         });
     }
 
+
     render() {
         let {status} = this.props;
         return (
