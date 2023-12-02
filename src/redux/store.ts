@@ -61,7 +61,7 @@ export const store: StoreState = {
 
     },
     _callSubscriber(state: StoreType) {
-        console.log('state is changed');
+        console.log('state is changed', state);
     },
     getState() {
         return this._state;
