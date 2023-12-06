@@ -1,7 +1,7 @@
-import { authAPI, AuthDataType } from "../../api/auth-api";
+import { authAPI, AuthDataType } from "api/auth-api";
 import { Dispatch } from "redux";
 import { toggleIsFetchingAC } from "./users-reducer";
-import { ValuesType } from "../../components/Login/login-utils";
+import { ValuesType } from "components/Login/login-utils";
 
 export type AuthStateType = AuthDataType & { isFetching: boolean; isAuth: boolean };
 

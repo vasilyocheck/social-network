@@ -1,7 +1,7 @@
 import s from "./Users.module.css";
 import avatarPlaceholder from "../../assets/img/avatar-placeholder.png";
 import React, { FC } from "react";
-import { UserType } from "../../api/users-api";
+import { UserType } from "api/users-api";
 import { NavLink } from "react-router-dom";
 
 type UsersPropsType = {

@@ -1,4 +1,4 @@
-import { usersAPI, UserType } from "../../api/users-api";
+import { usersAPI, UserType } from "api/users-api";
 import { AppThunk } from "../redux-store";
 import { Dispatch } from "redux";
 
@@ -124,6 +124,7 @@ export const followTC =
   async (dispatch) => {
     dispatch(toggleIsFollowingInProgressAC(userId, true));
     const response = await usersAPI.followUser(userId);
+    console.log(response);
     try {
       dispatch(followAC(userId));
       dispatch(toggleIsFollowingInProgressAC(userId, false));
@@ -137,6 +138,7 @@ export const unfollowTC =
   async (dispatch) => {
     dispatch(toggleIsFollowingInProgressAC(userId, true));
     const response = await usersAPI.unfollowUser(userId);
+    console.log(response);
     try {
       dispatch(unfollowAC(userId));
       dispatch(toggleIsFollowingInProgressAC(userId, false));

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import s from "./Login.module.css";
-import { useAppSelector } from "../../app/hooks";
+import { useAppSelector } from "app/hooks";
 import { Navigate } from "react-router-dom";
 import { LoginForm } from "./LoginForm/LoginForm";
 

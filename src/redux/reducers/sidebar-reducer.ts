@@ -20,5 +20,8 @@ const initialState = {
 };
 
 export const sidebarReducer = (state: SiderBarType = initialState, action: any): SiderBarType => {
-  return state;
+  switch (action.type) {
+    default:
+      return state;
+  }
 };

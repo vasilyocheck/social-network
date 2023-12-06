@@ -1,9 +1,9 @@
 import React from "react";
 import s from "../Login.module.css";
 import { useFormik } from "formik";
-import { loginTC } from "../../../redux/reducers/auth-reducer";
+import { loginTC } from "redux/reducers/auth-reducer";
 import { validate } from "../login-utils";
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch } from "app/hooks";
 
 export const LoginForm = () => {
   const dispatch = useAppDispatch();

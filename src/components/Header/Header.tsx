@@ -2,8 +2,8 @@ import React, { FC } from "react";
 import logo from "../../assets/img/7.jpg";
 import s from "./Header.module.css";
 import { NavLink } from "react-router-dom";
-import { useAppDispatch } from "../../app/hooks";
-import { logoutTC } from "../../redux/reducers/auth-reducer";
+import { useAppDispatch } from "app/hooks";
+import { logoutTC } from "redux/reducers/auth-reducer";
 
 type HeaderPropsType = {
   login: string;

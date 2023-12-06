@@ -1,6 +1,7 @@
 import { StoreType } from "redux/redux-store";
 
 export const getAuth = (state: StoreType) => state.auth.isAuth;
+export const getAuthLogin = (state: StoreType) => state.auth.login;
 export const getProfile = (state: StoreType) => state.profilePage.profile;
 export const getProfileStatus = (state: StoreType) => state.profilePage.profileStatus;
 export const getPosts = (state: StoreType) => state.profilePage.posts;

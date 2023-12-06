@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import s from "./ProfileInfo.module.css";
-import { UserProfileType } from "../../../api/profile-api";
+import { UserProfileType } from "api/profile-api";
 import { Preloader } from "../../common/Preloader/Preloader";
 import { ProfileStatus } from "../ProfileStatus/ProfileStatus";
 

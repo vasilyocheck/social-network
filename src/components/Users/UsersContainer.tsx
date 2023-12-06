@@ -1,10 +1,10 @@
 import React from "react";
-import { StoreType } from "../../redux/redux-store";
-import { followTC, getUsersTC, setTotalUsersCountAC, unfollowTC } from "../../redux/reducers/users-reducer";
-import { UserType } from "../../api/users-api";
+import { StoreType } from "redux/redux-store";
+import { followTC, getUsersTC, setTotalUsersCountAC, unfollowTC } from "redux/reducers/users-reducer";
+import { UserType } from "api/users-api";
 import { Users } from "./Users";
 import { Preloader } from "../common/Preloader/Preloader";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "app/hooks";
 
 type UsersAPIComponentPropsType = {
   users: UserType[];

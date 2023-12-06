@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Profile } from "./Profile";
 import { UserProfileType } from "api/profile-api";
 import { setProfileStatusTC, setUserProfileTC, updateStatusTC } from "redux/reducers/profile-reducer";
-import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { getAuth, getProfile, getProfileStatus } from "utils/utils";
 
