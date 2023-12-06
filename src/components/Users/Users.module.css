@@ -1,15 +1,15 @@
 .avatarContainer {
-    width: 80px;
-    height: 80px;
+  width: 80px;
+  height: 80px;
 }
 
 .selectedPage {
-    font-weight: bold;
-    cursor: pointer;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.page:hover, .selectedPage:hover {
-    color: white;
-    cursor: pointer;
+.page:hover,
+.selectedPage:hover {
+  color: white;
+  cursor: pointer;
 }
-

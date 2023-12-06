@@ -1,36 +1,17 @@
-import React from 'react';
-import {addNewMessage, updateNewMessageTextAC} from "../../redux/reducers/dialogues-reducer";
-import {Dialogues} from "./Dialogues";
-import {useDispatch} from "react-redux";
-import {StoreType} from "../../redux/redux-store";
-import {useAppSelector} from "../../app/hooks";
-import {Navigate} from "react-router-dom";
+import React from "react";
+import { addNewMessage } from "redux/reducers/dialogues-reducer";
+import { Dialogues } from "./Dialogues";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "app/hooks";
+import { getDialoguesPage } from "utils/utils";
 
 export const DialoguesContainer = () => {
-    const dispatch = useDispatch();
-    const dialoguesPage = useAppSelector((state: StoreType) => state.dialoguesPage);
-    const isAuth = useAppSelector(state => state.auth.isAuth);
+  const dispatch = useDispatch();
+  const dialoguesPage = useAppSelector(getDialoguesPage);
 
-    const updateMessageBody = (newMessageBody: string) => {
-        dispatch(updateNewMessageTextAC(newMessageBody));
-    }
+  const addMessage = (newMessage: string) => {
+    dispatch(addNewMessage(newMessage));
+  };
 
-    const addMessage = () => {
-        dispatch(addNewMessage());
-    }
-
-    return (
-        <Dialogues dialoguesPage={dialoguesPage}
-                   updateMessageBody={updateMessageBody}
-                   addMessage={addMessage}
-                   isAuth={isAuth}
-        />
-    );
+  return <Dialogues dialoguesPage={dialoguesPage} addMessage={addMessage} />;
 };
-
-export const AuthRedirectComponent = (props: any) => {
-    if(!props.isAuth) {
-        return <Navigate to={'/login'} />
-    }
-    return <Dialogues {...props} />
-}

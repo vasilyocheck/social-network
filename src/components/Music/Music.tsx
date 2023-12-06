@@ -1,9 +1,5 @@
-import React from 'react';
+import React from "react";
 
 export const Music = () => {
-    return (
-        <div>
-            Music section will be here...
-        </div>
-    );
+  return <div>Music section will be here...</div>;
 };

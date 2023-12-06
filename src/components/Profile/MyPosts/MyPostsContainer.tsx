@@ -1,24 +1,18 @@
-import React from 'react';
-import {MyPosts} from "./MyPosts";
-import {addPostAC, PostsType, updateNewPostTextAC} from "../../../redux/reducers/profile-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {StoreType} from "../../../redux/redux-store";
-
+import React from "react";
+import { MyPosts } from "./MyPosts";
+import { addPostAC } from "redux/reducers/profile-reducer";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "app/hooks";
+import { getNewPostText, getPosts } from "utils/utils";
 
 export const MyPostsContainer = () => {
-    const dispatch = useDispatch();
-    const posts = useSelector<StoreType, PostsType[] >(state => state.profilePage.posts);
-    const newPostText = useSelector<StoreType, string>(state => state.profilePage.newPostText);
+  const dispatch = useDispatch();
+  const posts = useAppSelector(getPosts);
+  const newPostText = useAppSelector(getNewPostText);
 
+  const addPost = (newPostText: string) => {
+    dispatch(addPostAC(newPostText));
+  };
 
-    const onPostChange = (newPostText: string) => {
-        dispatch(updateNewPostTextAC(newPostText));
-    }
-    const addPost = () => {
-        dispatch(addPostAC());
-    }
-
-    return (
-        <MyPosts updateNewPostText={onPostChange} addPost={addPost} posts={posts} newPostText={newPostText} />
-    );
+  return <MyPosts addPost={addPost} posts={posts} newPostText={newPostText} />;
 };

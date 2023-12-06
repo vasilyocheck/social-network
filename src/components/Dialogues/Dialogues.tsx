@@ -1,57 +1,33 @@
-import React, {ChangeEvent} from 'react';
-import s from './Dialogues.module.css'
-import {DialogueItem} from "./DialogueItem/DialogueItem";
-import {Message} from "./Message/Message";
-import {DialoguesPageType} from "../../redux/reducers/dialogues-reducer";
-import {Navigate} from "react-router-dom";
+import React, { ChangeEvent } from "react";
+import s from "./Dialogues.module.css";
+import { DialogueItem } from "./DialogueItem/DialogueItem";
+import { Message } from "./Message/Message";
+import { DialoguesPageType } from "redux/reducers/dialogues-reducer";
+import { TextInputForm } from "components/common/TextInputForm/TextInputForm";
 
 type DialoguesPropsType = {
-    dialoguesPage: DialoguesPageType
-    updateMessageBody: (newMessageBody: string) => void
-    addMessage: () => void
-    isAuth: boolean
-}
+  dialoguesPage: DialoguesPageType;
+  addMessage: (newMessage: string) => void;
+};
 
-export const Dialogues: React.FC<DialoguesPropsType> = (
-    {
-        dialoguesPage,
-        updateMessageBody,
-        addMessage,
-        isAuth
-    }) => {
+export const Dialogues: React.FC<DialoguesPropsType> = ({ dialoguesPage, addMessage }) => {
+  const dialoguesElements = dialoguesPage.dialogues.map((d) => <DialogueItem name={d.name} id={d.id} key={d.id} />);
 
-    const dialoguesElements = dialoguesPage.dialogues.map(d =>
-        <DialogueItem name={d.name} id={d.id} key={d.id} />)
-    const messagesElements = dialoguesPage.messages.map(m =>
-        <Message message={m.message} id={m.id} key={m.id}/>);
+  const messagesElements = dialoguesPage.messages.map((m) => <Message message={m.message} id={m.id} key={m.id} />);
 
+  const onAddMessage = (newMessage: string) => {
+    addMessage(newMessage);
+  };
 
-    const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        if(e.currentTarget.value) {
-            updateMessageBody(e.currentTarget.value);
-        }
-
-    }
-    const onAddMessage = () => {
-        addMessage();
-    }
-
-    if (!isAuth) {
-        return <Navigate to={'/login'} />
-    }
-
-    return (
-        <div className={s.dialogues}>
-            <div className={s.dialoguesItems}>
-                {dialoguesElements}
-            </div>
-            <div className={s.messages}>
-                {messagesElements}
-                <textarea value={dialoguesPage.newMessage} onChange={onChangeMessage}></textarea>
-                <button onClick={onAddMessage}>add message</button>
-            </div>
-        </div>
-    );
+  return (
+    <div className={s.dialogues}>
+      <div className={s.dialoguesItems}>{dialoguesElements}</div>
+      <div className={s.messages}>
+        {messagesElements}
+        <TextInputForm initialPostText={dialoguesPage.newMessage} onAddPost={onAddMessage} />
+      </div>
+    </div>
+  );
 };
 
 /*

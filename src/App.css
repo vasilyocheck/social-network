@@ -1,20 +1,20 @@
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .app-wrapper {
-    display: grid;
-    grid-template-rows: 60px 1fr;
-    grid-template-columns: 2fr 10fr;
-    /*grid-gap: 10px;*/
-    grid-template-areas:
-        'h h'
-        'n c';
-    width: 1200px;
-    margin: 0 auto;
+  display: grid;
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 2fr 10fr;
+  /*grid-gap: 10px;*/
+  grid-template-areas:
+    "h h"
+    "n c";
+  width: 1200px;
+  margin: 0 auto;
 }
 
 .app-wrapper-content {
-    grid-area: c;
-    background-color: cornflowerblue;
+  grid-area: c;
+  background-color: cornflowerblue;
 }
