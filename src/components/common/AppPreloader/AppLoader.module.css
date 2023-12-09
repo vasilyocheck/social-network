@@ -1,0 +1,37 @@
+.loaderWrapper {
+    height: 100vh;
+    display: flex;;
+    align-items: center;
+    justify-content: center;
+}
+
+.appLoader {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: conic-gradient(#512DE4, transparent);
+
+    animation: rotating 1s linear infinite;
+}
+
+.appLoader::before {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: 10px;
+    left: 10px;
+    border-radius: 50%;
+    background: white;
+}
+
+@keyframes rotating {
+    from {
+        transform: rotate(0deg);
+
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Profile } from "./Profile";
 import { UserProfileType } from "api/profile-api";
-import { setProfileStatusTC, setUserProfileTC, updateStatusTC } from "redux/reducers/profile-reducer";
+import { setUserProfileTC, updateStatusTC } from "redux/reducers/profile-reducer";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { getAuth, getProfile, getProfileStatus } from "utils/utils";
@@ -46,9 +46,6 @@ export class ProfileAPIComponent extends React.Component<ProfileAPIComponentType
 }
 
 export const AuthRedirectComponent = (props: any) => {
-  /* if (!props.isAuth) {
-    return <Navigate to={"/login"} />;
-  }*/
   return <ProfileAPIComponent {...props} />;
 };
 
@@ -59,9 +56,6 @@ export const ProfileContainer = () => {
   const profile = useAppSelector(getProfile);
   const isAuth = useAppSelector(getAuth);
   const profileStatus = useAppSelector(getProfileStatus);
-  useEffect(() => {
-    dispatch(setProfileStatusTC(30104));
-  }, []);
 
   const setUserProfile = (userId: number) => {
     dispatch(setUserProfileTC(userId));

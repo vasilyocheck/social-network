@@ -11,9 +11,13 @@ type DialoguesPropsType = {
 };
 
 export const Dialogues: React.FC<DialoguesPropsType> = ({ dialoguesPage, addMessage }) => {
-  const dialoguesElements = dialoguesPage.dialogues.map((d) => <DialogueItem name={d.name} id={d.id} key={d.id} />);
+  const dialoguesElements = dialoguesPage.dialogues.map((d) => {
+    return <DialogueItem name={d.name} id={d.id} key={d.id} />;
+  });
 
-  const messagesElements = dialoguesPage.messages.map((m) => <Message message={m.message} id={m.id} key={m.id} />);
+  const messagesElements = dialoguesPage.messages.map((m) => {
+    return <Message message={m.message} id={m.id} key={m.id} />;
+  });
 
   const onAddMessage = (newMessage: string) => {
     addMessage(newMessage);
@@ -29,34 +33,3 @@ export const Dialogues: React.FC<DialoguesPropsType> = ({ dialoguesPage, addMess
     </div>
   );
 };
-
-/*
-export const Dialogues: React.FC<DialoguesPropsType> = ({state, dispatch}) => {
-
-    const dialoguesElements = state.dialogues.map(d => <DialogueItem name={d.name} id={d.id} key={d.id} />)
-    const messagesElements = state.messages.map(m => <Message message={m.message} id={m.id} key={m.id}/>);
-
-
-    const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        if(e.currentTarget.value) {
-            dispatch(updateNewMessageTextAC(e.currentTarget.value))
-        }
-
-    }
-    const handleAddNewMessage = () => {
-        dispatch(addNewMessage());
-    }
-
-    return (
-        <div className={s.dialogues}>
-            <div className={s.dialoguesItems}>
-                {dialoguesElements}
-            </div>
-            <div className={s.messages}>
-                {messagesElements}
-                <textarea value={state.newMessage} onChange={handleOnChange}></textarea>
-                <button onClick={handleAddNewMessage}>add message</button>
-            </div>
-        </div>
-    );
-};*/

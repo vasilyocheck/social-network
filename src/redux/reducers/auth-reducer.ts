@@ -2,6 +2,7 @@ import { authAPI, AuthDataType } from "api/auth-api";
 import { Dispatch } from "redux";
 import { toggleIsFetchingAC } from "./users-reducer";
 import { ValuesType } from "components/Login/login-utils";
+import { setAppIsInitialisedAC } from "redux/reducers/app-reducer";
 
 export type AuthStateType = AuthDataType & { isFetching: boolean; isAuth: boolean };
 
@@ -52,6 +53,8 @@ export const setAuthUserDataTC = () => async (dispatch: Dispatch) => {
     }
   } catch (e) {
     console.log(e);
+  } finally {
+    dispatch(setAppIsInitialisedAC(true));
   }
 };
 
