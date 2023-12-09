@@ -7,3 +7,9 @@ export const getProfileStatus = (state: StoreType) => state.profilePage.profileS
 export const getPosts = (state: StoreType) => state.profilePage.posts;
 export const getNewPostText = (state: StoreType) => state.profilePage.newPostText;
 export const getDialoguesPage = (state: StoreType) => state.dialoguesPage;
+export const getUsers = (state: StoreType) => state.usersPage.users;
+export const getUsersPageSize = (state: StoreType) => state.usersPage.pageSize;
+export const getTotalUsersCount = (state: StoreType) => state.usersPage.totalUsersCount;
+export const getUserCurrentPage = (state: StoreType) => state.usersPage.currentPage;
+export const getUsersIsFetching = (state: StoreType) => state.usersPage.isFetching;
+export const getUsersIsFollowingInProgress = (state: StoreType) => state.usersPage.isFollowingInProgress;
