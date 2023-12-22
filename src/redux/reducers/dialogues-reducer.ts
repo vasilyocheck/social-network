@@ -40,10 +40,7 @@ export const dialoguesReducer = (
   action: GeneralDialoguesReducer,
 ): DialoguesPageType => {
   switch (action.type) {
-    /*case "UPDATE-NEW-MESSAGE-TEXT": {
-      return { ...state, newMessage: action.payload.newMessageText };
-    }*/
-    case "ADD-NEW-MESSAGE": {
+    case "DIALOGUES/ADD-NEW-MESSAGE": {
       return {
         ...state,
         messages: [
@@ -61,21 +58,11 @@ export const dialoguesReducer = (
     }
   }
 };
-/*
-type UpdateNewMessageTextType = ReturnType<typeof updateNewMessageTextAC>;
-export const updateNewMessageTextAC = (newMessageText: string) => {
-  return {
-    type: "UPDATE-NEW-MESSAGE-TEXT",
-    payload: {
-      newMessageText,
-    },
-  } as const;
-};*/
 
 type AddNewMessageType = ReturnType<typeof addNewMessage>;
 export const addNewMessage = (newMessage: string) => {
   return {
-    type: "ADD-NEW-MESSAGE",
+    type: "DIALOGUES/ADD-NEW-MESSAGE",
     newMessage,
   } as const;
 };

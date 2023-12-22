@@ -110,14 +110,17 @@ export const toggleIsFollowingInProgressAC = (userId: number, isFetching: boolea
   } as const;
 };
 
-export const getUsersTC = (pageSize: number, currentPage: number) => (dispatch: Dispatch) => {
+export const getUsersTC = (pageSize: number, currentPage: number) => async (dispatch: Dispatch) => {
   dispatch(toggleIsFetchingAC(true));
-  usersAPI.getUsers(pageSize, currentPage).then((res) => {
+  try {
+    const res = await usersAPI.getUsers(pageSize, currentPage);
     dispatch(setUsersAC(res.data.items));
     dispatch(setTotalUsersCountAC(res.data.totalCount));
     dispatch(setCurrentPageAC(currentPage));
     dispatch(toggleIsFetchingAC(false));
-  });
+  } catch (e) {
+    console.log(e);
+  }
 };
 export const followTC =
   (userId: number): AppThunk =>

@@ -31,9 +31,9 @@ export const profileReducer = (
   action: GeneralProfileReducerType,
 ): ProfilePageType => {
   switch (action.type) {
-    case "SET-USER-PROFILE":
+    case "PROFILE/SET-USER-PROFILE":
       return { ...state, profile: action.profile };
-    case "ADD-POST": {
+    case "PROFILE/ADD-POST": {
       const newItem: PostsType = {
         id: state.posts.length + 1,
         postText: action.newPostText,
@@ -52,7 +52,7 @@ export const profileReducer = (
 type AddPostType = ReturnType<typeof addPostAC>;
 export const addPostAC = (newPostText: string) => {
   return {
-    type: "ADD-POST",
+    type: "PROFILE/ADD-POST",
     newPostText,
   } as const;
 };
@@ -60,7 +60,7 @@ export const addPostAC = (newPostText: string) => {
 type SetUserProfileACType = ReturnType<typeof setUserProfileAC>;
 export const setUserProfileAC = (profile: UserProfileType) => {
   return {
-    type: "SET-USER-PROFILE",
+    type: "PROFILE/SET-USER-PROFILE",
     profile,
   } as const;
 };

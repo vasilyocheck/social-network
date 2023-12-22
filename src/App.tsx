@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { NavBar } from "components/NavBar/NavBar";
 import { Route, Routes } from "react-router-dom";
@@ -15,6 +15,7 @@ import { WithAuthRedirect } from "hoc/withAuthRedirect";
 const App = () => {
   return (
     <div className="app-wrapper">
+      <HashtagInput />
       <HeaderContainer />
       <NavBar />
       <div className="app-wrapper-content">
@@ -34,3 +35,36 @@ const App = () => {
 };
 
 export default App;
+
+export const HashtagInput = () => {
+  const [inputValue, setInputValue] = useState("");
+
+  useEffect(() => {
+    const handleInput = (event: any) => {
+      const words = event.target.value.split(" ");
+      const highlightedWords = words.map((word: any) => {
+        if (word.startsWith("#")) {
+          return <span style={{ color: "red" }}>{word} </span>;
+        }
+        return `${word} `;
+      });
+      setInputValue(highlightedWords);
+    };
+
+    const input = document.querySelector("#hashtag-input");
+    if (input) {
+      input.addEventListener("input", handleInput);
+
+      return () => {
+        input.removeEventListener("input", handleInput);
+      };
+    }
+  }, []);
+
+  return (
+    <div>
+      <input id="hashtag-input" type="text" value={""} />
+      <p>{inputValue}</p>
+    </div>
+  );
+};
