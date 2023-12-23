@@ -1,6 +1,9 @@
 import { usersAPI, UserType } from "api/users-api";
 import { AppThunk } from "../redux-store";
 import { Dispatch } from "redux";
+import { ThunkDispatch } from "redux-thunk";
+import { AxiosResponse } from "axios";
+import { changeObjInArr } from "utils/object-helpers";
 
 type UsersStateType = {
   users: UserType[];
@@ -25,12 +28,12 @@ export const usersReducer = (state: UsersStateType = initialState, action: Users
     case "USERS/FOLLOW":
       return {
         ...state,
-        users: state.users.map((u) => (u.id === action.payload.userId ? { ...u, followed: true } : u)),
+        users: changeObjInArr(state.users, action.payload.userId, "id", { followed: true }),
       };
     case "USERS/UNFOLLOW":
       return {
         ...state,
-        users: state.users.map((u) => (u.id === action.payload.userId ? { ...u, followed: false } : u)),
+        users: changeObjInArr(state.users, action.payload.userId, "id", { followed: false }),
       };
     case "USERS/SET_USERS":
       return { ...state, users: [...action.payload.users] };
@@ -122,33 +125,33 @@ export const getUsersTC = (pageSize: number, currentPage: number) => async (disp
     console.log(e);
   }
 };
+
+const followUfollowFlow = async (
+  dispatch: ThunkDispatch<any, any, any>,
+  apiMethod: AxiosResponse<any, any>,
+  userId: number,
+  actionCreator: (idNumber: number) => void,
+) => {
+  dispatch(toggleIsFollowingInProgressAC(userId, true));
+  const response = apiMethod;
+  try {
+    dispatch(actionCreator(userId));
+    dispatch(toggleIsFollowingInProgressAC(userId, false));
+  } catch (e) {
+    console.log(e);
+    dispatch(toggleIsFollowingInProgressAC(userId, false));
+  }
+};
+
 export const followTC =
   (userId: number): AppThunk =>
   async (dispatch) => {
-    dispatch(toggleIsFollowingInProgressAC(userId, true));
-    const response = await usersAPI.followUser(userId);
-    console.log(response);
-    try {
-      dispatch(followAC(userId));
-      dispatch(toggleIsFollowingInProgressAC(userId, false));
-    } catch (e) {
-      console.log(e);
-      dispatch(toggleIsFollowingInProgressAC(userId, false));
-    }
+    followUfollowFlow(dispatch, await usersAPI.followUser(userId), userId, followAC);
   };
 export const unfollowTC =
   (userId: number): AppThunk =>
   async (dispatch) => {
-    dispatch(toggleIsFollowingInProgressAC(userId, true));
-    const response = await usersAPI.unfollowUser(userId);
-    console.log(response);
-    try {
-      dispatch(unfollowAC(userId));
-      dispatch(toggleIsFollowingInProgressAC(userId, false));
-    } catch (e) {
-      console.log(e);
-      dispatch(toggleIsFollowingInProgressAC(userId, false));
-    }
+    followUfollowFlow(dispatch, await usersAPI.unfollowUser(userId), userId, unfollowAC);
   };
 
 export type UsersReducerActionType =

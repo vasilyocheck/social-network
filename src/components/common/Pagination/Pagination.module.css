@@ -1,0 +1,10 @@
+.selectedPage {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.page:hover,
+.selectedPage:hover {
+    color: white;
+    cursor: pointer;
+}

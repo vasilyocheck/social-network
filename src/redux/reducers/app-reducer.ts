@@ -1,6 +1,3 @@
-import { Dispatch } from "redux";
-import { authAPI } from "api/auth-api";
-
 type AppState = {
   isInitialised: boolean;
 };

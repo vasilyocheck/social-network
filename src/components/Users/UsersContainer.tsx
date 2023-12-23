@@ -1,5 +1,4 @@
 import React from "react";
-import { StoreType } from "redux/redux-store";
 import { followTC, getUsersTC, setTotalUsersCountAC, unfollowTC } from "redux/reducers/users-reducer";
 import { UserType } from "api/users-api";
 import { Users } from "./Users";
@@ -29,7 +28,8 @@ type UsersAPIComponentPropsType = {
 
 export class UsersAPIComponent extends React.Component<UsersAPIComponentPropsType> {
   componentDidMount() {
-    this.props.setUsers(this.props.pageSize, this.props.currentPage);
+    const { pageSize, currentPage } = this.props;
+    this.props.setUsers(pageSize, currentPage);
   }
 
   handleChangePageNumber(pageNumber: number) {
