@@ -23,7 +23,7 @@ export const User: FC<UserPropsType> = ({ isFollowingInProgress, follow, unfollo
     </button>
   );
   return (
-    <div key={user.id}>
+    <div>
       <span>
         <div className={s.avatarContainer}>
           <NavLink to={"/profile/" + user.id}>

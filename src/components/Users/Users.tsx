@@ -34,7 +34,9 @@ export const Users: FC<UsersPropsType> = ({
         changePageNumber={changePageNumber}
       />
       {users.map((u) => {
-        return <User user={u} unfollow={unfollow} follow={follow} isFollowingInProgress={isFollowingInProgress} />;
+        return (
+          <User key={u.id} user={u} unfollow={unfollow} follow={follow} isFollowingInProgress={isFollowingInProgress} />
+        );
       })}
     </div>
   );

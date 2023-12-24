@@ -1,6 +1,14 @@
 .selectedPage {
     font-weight: bold;
     cursor: pointer;
+    border: 1px solid #75f8bd;
+    background-color: #75f8bd;
+    margin-right: 5px;
+}
+
+.page {
+    border: 1px solid #75f8bd;
+    margin-right: 5px;
 }
 
 .page:hover,
