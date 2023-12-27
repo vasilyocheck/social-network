@@ -4,6 +4,9 @@ import { ValuesType } from "components/Login/login-utils";
 const instance = axios.create({
   baseURL: "https://social-network.samuraijs.com/api/1.0/",
   withCredentials: true,
+  headers: {
+    "API-KEY": "abedc383-1acb-44b8-b20b-3c57769824c7",
+  },
 });
 
 export type AuthDataType = {
