@@ -17,6 +17,7 @@ type ProfileAPIComponentType = {
   isAuth: boolean;
   profileStatus: string;
   updateStatus: (status: string) => void;
+  isStatusToUpdate: boolean;
 };
 
 function withRouter(Component: any) {
@@ -40,6 +41,7 @@ export class ProfileAPIComponent extends React.Component<ProfileAPIComponentType
         profile={this.props.profile}
         profileStatus={this.props.profileStatus}
         updateStatus={this.props.updateStatus}
+        isStatusToUpdate={this.props.isStatusToUpdate}
       />
     );
   }
@@ -56,6 +58,9 @@ export const ProfileContainer = () => {
   const profile = useAppSelector(getProfile);
   const isAuth = useAppSelector(getAuth);
   const profileStatus = useAppSelector(getProfileStatus);
+  const authId = useAppSelector((state) => state.auth.id);
+  const isStatusToUpdate = authId === profile?.userId;
+  console.log(authId, profile?.userId);
 
   const setUserProfile = (userId: number) => {
     dispatch(setUserProfileTC(userId));
@@ -71,6 +76,7 @@ export const ProfileContainer = () => {
       isAuth={isAuth}
       profileStatus={profileStatus}
       updateStatus={updateStatus}
+      isStatusToUpdate={isStatusToUpdate}
     />
   );
 };

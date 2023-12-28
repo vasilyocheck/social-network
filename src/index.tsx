@@ -1,20 +1,21 @@
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import React from "react";
 import { store } from "redux/redux-store";
 import { Provider } from "react-redux";
 import { Application } from "Application";
+import * as process from "process";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
-  <BrowserRouter>
+  <HashRouter>
     <Provider store={store}>
       <Application />
     </Provider>
-  </BrowserRouter>,
+  </HashRouter>,
 );
 
 // If you want to start measuring performance in your app, pass a function

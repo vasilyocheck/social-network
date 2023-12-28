@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom";
 import avatarPlaceholder from "assets/img/avatar-placeholder.png";
 import React, { FC } from "react";
 import { UserType } from "api/users-api";
+import { useAppDispatch } from "app/hooks";
+import { setProfileStatusTC } from "redux/reducers/profile-reducer";
 
 type UserPropsType = {
   unfollow: (id: number) => void;
@@ -12,6 +14,10 @@ type UserPropsType = {
 };
 
 export const User: FC<UserPropsType> = ({ isFollowingInProgress, follow, unfollow, user }) => {
+  const dispatch = useAppDispatch();
+  const resetProfStatus = (userId: number) => {
+    dispatch(setProfileStatusTC(userId));
+  };
   const followBtnDisabledStatus = isFollowingInProgress.some((id) => id === user.id);
   const followUnfollowButton = user.followed ? (
     <button onClick={() => unfollow(user.id)} disabled={followBtnDisabledStatus}>
@@ -27,7 +33,11 @@ export const User: FC<UserPropsType> = ({ isFollowingInProgress, follow, unfollo
       <span>
         <div className={s.avatarContainer}>
           <NavLink to={"/profile/" + user.id}>
-            <img src={user.photos.small || avatarPlaceholder} alt={user.name} />
+            <img
+              src={user.photos.small || avatarPlaceholder}
+              alt={user.name}
+              onClick={() => resetProfStatus(user.id)}
+            />
           </NavLink>
         </div>
         <div>{followUnfollowButton}</div>
@@ -45,3 +55,9 @@ export const User: FC<UserPropsType> = ({ isFollowingInProgress, follow, unfollo
     </div>
   );
 };
+
+//хвс 150 = 165 п.м.
+
+// 215 ХВ-320 = 215 п.м.
+
+//+7 961 455 04 22

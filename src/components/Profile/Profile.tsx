@@ -7,12 +7,18 @@ type ProfilePropsType = {
   profile: UserProfileType | null;
   profileStatus: string;
   updateStatus: (status: string) => void;
+  isStatusToUpdate: boolean;
 };
 
 export const Profile: FC<ProfilePropsType> = (props) => {
   return (
     <div className={""}>
-      <ProfileInfo profile={props.profile} profileStatus={props.profileStatus} updateStatus={props.updateStatus} />
+      <ProfileInfo
+        profile={props.profile}
+        profileStatus={props.profileStatus}
+        updateStatus={props.updateStatus}
+        isStatusToUpdate={props.isStatusToUpdate}
+      />
       <MyPostsContainer />
     </div>
   );
