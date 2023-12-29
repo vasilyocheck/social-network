@@ -51,4 +51,10 @@ export const profileAPI = {
   updateStatus(status: string) {
     return instance.put<ResponseType, AxiosResponse<ResponseType>, { status: string }>(`profile/status`, { status });
   },
+  updateAvatar(formData: any) {
+    return instance.put<ResponseType, AxiosResponse<ResponseType<{ photos: { small: string; large: string } }>>>(
+      `profile/photo`,
+      formData,
+    );
+  },
 };

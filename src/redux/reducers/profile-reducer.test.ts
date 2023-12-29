@@ -17,6 +17,7 @@ let startState: ProfilePageType = {
   newPostText: "it-kamasutra",
   profile: null,
   profileStatus: "",
+  isLoading: false,
 };
 
 beforeEach(() => {
@@ -28,6 +29,7 @@ beforeEach(() => {
     newPostText: "it-kamasutra",
     profile: null,
     profileStatus: "",
+    isLoading: false,
   };
 });
 

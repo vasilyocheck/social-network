@@ -1,7 +1,12 @@
 import { profileAPI, UserProfileType } from "api/profile-api";
 import { Dispatch } from "redux";
 
-export type GeneralProfileReducerType = AddPostType | SetUserProfileACType | SetProfileStatusAC;
+export type GeneralProfileReducerType =
+  | AddPostType
+  | SetUserProfileACType
+  | SetProfileStatusAC
+  | UpdateAvatarACType
+  | SetIsLoadingAC;
 
 export type PostsType = {
   id: number;
@@ -14,6 +19,7 @@ export type ProfilePageType = {
   newPostText: string;
   profile: UserProfileType | null;
   profileStatus: string;
+  isLoading: boolean;
 };
 
 const initialState = {
@@ -24,6 +30,7 @@ const initialState = {
   newPostText: "it-kamasutra",
   profile: null,
   profileStatus: "",
+  isLoading: false,
 };
 
 export const profileReducer = (
@@ -43,6 +50,13 @@ export const profileReducer = (
     }
     case "PROFILE/SET-PROFILE-STATUS":
       return { ...state, profileStatus: action.status };
+    case "PROFILE/UPDATE-AVATAR": {
+      const updatedProfile: UserProfileType = { ...state.profile } as UserProfileType;
+      updatedProfile.photos.large = action.avaURl;
+      return { ...state, profile: updatedProfile };
+    }
+    case "PROFILE/SET-IS-LOADING":
+      return { ...state, isLoading: action.isLoading };
     default: {
       return state;
     }
@@ -73,6 +87,22 @@ export const setProfileStatusAC = (status: string) => {
   } as const;
 };
 
+type UpdateAvatarACType = ReturnType<typeof updateAvatarAC>;
+export const updateAvatarAC = (avaURl: string) => {
+  return {
+    type: "PROFILE/UPDATE-AVATAR",
+    avaURl,
+  } as const;
+};
+
+type SetIsLoadingAC = ReturnType<typeof setIsLoadingAC>;
+export const setIsLoadingAC = (isLoading: boolean) => {
+  return {
+    type: "PROFILE/SET-IS-LOADING",
+    isLoading,
+  } as const;
+};
+
 export const setUserProfileTC = (userId: number) => async (dispatch: Dispatch) => {
   try {
     const response = await profileAPI.getProfile(userId);
@@ -96,6 +126,17 @@ export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => 
     const res = await profileAPI.updateStatus(status);
     if (res.data.resultCode === 0) {
       dispatch(setProfileStatusAC(status));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const updateAvatarTC = (formData: any) => async (dispatch: Dispatch) => {
+  try {
+    const res = await profileAPI.updateAvatar(formData);
+    if (res.data.resultCode === 0) {
+      dispatch(updateAvatarAC(res.data.data.photos.large));
     }
   } catch (e) {
     console.log(e);

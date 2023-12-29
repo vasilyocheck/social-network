@@ -28,6 +28,7 @@ export const store: StoreState = {
       newPostText: "it-kamasutra",
       profile: null,
       profileStatus: "",
+      isLoading: false,
     },
     dialoguesPage: {
       dialogues: [
