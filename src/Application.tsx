@@ -10,9 +10,11 @@ export const Application = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setAuthUserDataTC()).then(() => {
-      dispatch(setProfileStatusTC(30104));
-      dispatch(setUserProfileTC(30104));
+    dispatch(setAuthUserDataTC()).then((data) => {
+      if (data) {
+        dispatch(setProfileStatusTC(data));
+        dispatch(setUserProfileTC(data));
+      }
     });
   }, [dispatch]);
 

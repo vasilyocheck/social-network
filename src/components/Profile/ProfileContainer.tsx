@@ -60,7 +60,6 @@ export const ProfileContainer = () => {
   const profileStatus = useAppSelector(getProfileStatus);
   const authId = useAppSelector((state) => state.auth.id);
   const isToUpdate = authId === profile?.userId;
-  console.log(authId, profile?.userId);
 
   const setUserProfile = (userId: number) => {
     dispatch(setUserProfileTC(userId));

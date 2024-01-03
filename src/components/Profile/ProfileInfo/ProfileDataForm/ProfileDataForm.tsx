@@ -67,74 +67,15 @@ export const ProfileDataForm = ({ profile, toggleEditMode }: ProfileDataProps) =
         />
       </div>
       <div>Contact details:</div>
-      <div>
-        <label htmlFor="contacts.github">Github: </label>
-        <input
-          id="contacts.github"
-          name="contacts.github"
-          onChange={formik.handleChange}
-          value={formik.values.contacts.github}
-        />
-      </div>
-      <div>
-        <label htmlFor="contacts.vk">Vk: </label>
-        <input id="contacts.vk" name="contacts.vk" onChange={formik.handleChange} value={formik.values.contacts.vk} />
-      </div>
-      <div>
-        <label htmlFor="contacts.facebook">Facebook: </label>
-        <input
-          id="contacts.facebook"
-          name="contacts.facebook"
-          onChange={formik.handleChange}
-          value={formik.values.contacts.facebook}
-        />
-      </div>
-      <div>
-        <label htmlFor="contacts.instagram">Instagram: </label>
-        <input
-          id="contacts.instagram"
-          name="contacts.instagram"
-          onChange={formik.handleChange}
-          value={formik.values.contacts.instagram}
-        />
-      </div>
-      <div>
-        <label htmlFor="contacts.twitter">Twitter: </label>
-        <input
-          id="contacts.twitter"
-          name="contacts.twitter"
-          onChange={formik.handleChange}
-          value={formik.values.contacts.twitter}
-        />
-      </div>
-      <div>
-        <label htmlFor="contacts.website">Website: </label>
-        <input
-          id="contacts.website"
-          name="contacts.website"
-          onChange={formik.handleChange}
-          value={formik.values.contacts.website}
-        />
-      </div>
-      <div>
-        <label htmlFor="contacts.youtube">Youtube: </label>
-        <input
-          id="contacts.youtube"
-          name="contacts.youtube"
-          onChange={formik.handleChange}
-          value={formik.values.contacts.youtube}
-        />
-      </div>
-      <div>
-        <label htmlFor="contacts.mainLink">MainLink: </label>
-        <input
-          id="contacts.mainLink"
-          name="contacts.mainLink"
-          onChange={formik.handleChange}
-          value={formik.values.contacts.mainLink}
-        />
-      </div>
-
+      {Object.entries(formik.values.contacts).map((c) => {
+        const contactName = "contacts." + c[0];
+        return (
+          <div key={c[0]}>
+            <label htmlFor={contactName}>{`${c[0]}: `}</label>
+            <input type="text" id={contactName} {...formik.getFieldProps(contactName)} />
+          </div>
+        );
+      })}
       <div>
         <button type="submit">Submit</button>
       </div>

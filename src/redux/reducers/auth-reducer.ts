@@ -3,7 +3,7 @@ import { AnyAction, Dispatch } from "redux";
 import { toggleIsFetchingAC } from "./users-reducer";
 import { ValuesType } from "components/Login/login-utils";
 import { setAppIsInitialisedAC } from "redux/reducers/app-reducer";
-import { securityAPI } from "api/securityu-api";
+import { securityAPI } from "api/security-api";
 
 export type AuthStateType = AuthDataType & { isFetching: boolean; isAuth: boolean; error: string; captchaURL: string };
 
@@ -73,6 +73,7 @@ export const setAuthUserDataTC = () => async (dispatch: Dispatch) => {
     if (response.data.resultCode === 0) {
       const { id, email, login } = response.data.data;
       dispatch(setAuthUserDataAC(id, email, login));
+      return id;
     }
   } catch (e) {
     console.log(e);
