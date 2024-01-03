@@ -3,15 +3,19 @@ import s from "../Login.module.css";
 import { useFormik } from "formik";
 import { loginTC } from "redux/reducers/auth-reducer";
 import { validate } from "../login-utils";
-import { useAppDispatch } from "app/hooks";
+import { useAppDispatch, useAppSelector } from "app/hooks";
+import { getCaptchaURL, getIsError } from "utils/utils";
 
 export const LoginForm = () => {
   const dispatch = useAppDispatch();
+  const error = useAppSelector(getIsError);
+  const captchaUrl = useAppSelector(getCaptchaURL);
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
       rememberMe: false,
+      captcha: "",
     },
     onSubmit: (values) => {
       dispatch(loginTC(values));
@@ -37,9 +41,17 @@ export const LoginForm = () => {
           {...formik.getFieldProps("rememberMe")}
         />
       </div>
+      {captchaUrl && (
+        <>
+          <img src={captchaUrl} alt="url captcha" />
+          <label htmlFor="captcha">Type captcha here: </label>
+          <input type="text" id="captcha" {...formik.getFieldProps("captcha")} required={true} />
+        </>
+      )}
       <button className={s.submitBtn} type="submit">
         Login
       </button>
+      {error && <div className={s.error}>{error}</div>}
     </form>
   );
 };

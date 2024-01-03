@@ -1,10 +1,11 @@
 import { authAPI, AuthDataType } from "api/auth-api";
-import { Dispatch } from "redux";
+import { AnyAction, Dispatch } from "redux";
 import { toggleIsFetchingAC } from "./users-reducer";
 import { ValuesType } from "components/Login/login-utils";
 import { setAppIsInitialisedAC } from "redux/reducers/app-reducer";
+import { securityAPI } from "api/securityu-api";
 
-export type AuthStateType = AuthDataType & { isFetching: boolean; isAuth: boolean };
+export type AuthStateType = AuthDataType & { isFetching: boolean; isAuth: boolean; error: string; captchaURL: string };
 
 const initialState: AuthStateType = {
   id: 0,
@@ -12,6 +13,8 @@ const initialState: AuthStateType = {
   login: "",
   isFetching: false,
   isAuth: false,
+  error: "",
+  captchaURL: "",
 };
 
 export const authReducer = (state: AuthStateType = initialState, action: MainAuthActionType): AuthStateType => {
@@ -20,13 +23,17 @@ export const authReducer = (state: AuthStateType = initialState, action: MainAut
       return { ...state, ...action.authData, isAuth: true, id: action.authData.userId };
     case "AUTH/SET-IS-LOGGED-IN":
       return { ...state, isAuth: action.isAuth };
+    case "AUTH/SET-ERROR":
+      return { ...state, error: action.error };
+    case "AUTH/SET-CAPTCHA-URL":
+      return { ...state, captchaURL: action.captchaUrl };
     default: {
       return state;
     }
   }
 };
 
-export type MainAuthActionType = SetUserDataACType | LoginACType;
+export type MainAuthActionType = SetUserDataACType | LoginACType | SetErrorACType | SetCaptchaURLACType;
 
 type SetUserDataACType = ReturnType<typeof setAuthUserDataAC>;
 export const setAuthUserDataAC = (userId: number, email: string, login: string) => {
@@ -44,6 +51,22 @@ export const setIsAuthAC = (isAuth: boolean) => {
   } as const;
 };
 
+type SetErrorACType = ReturnType<typeof setErrorAC>;
+export const setErrorAC = (error: string) => {
+  return {
+    type: "AUTH/SET-ERROR",
+    error,
+  } as const;
+};
+
+type SetCaptchaURLACType = ReturnType<typeof setCaptchaURLAC>;
+export const setCaptchaURLAC = (captchaUrl: string) => {
+  return {
+    type: "AUTH/SET-CAPTCHA-URL",
+    captchaUrl,
+  } as const;
+};
+
 export const setAuthUserDataTC = () => async (dispatch: Dispatch) => {
   try {
     const response = await authAPI.me();
@@ -58,14 +81,20 @@ export const setAuthUserDataTC = () => async (dispatch: Dispatch) => {
   }
 };
 
-export const loginTC = (data: ValuesType) => async (dispatch: Dispatch) => {
+export const loginTC = (data: ValuesType) => async (dispatch: any) => {
   dispatch(toggleIsFetchingAC(true));
   try {
     const res = await authAPI.login(data);
     if (res.data.resultCode === 0) {
       dispatch(setIsAuthAC(true));
     } else {
-      console.log(res.data.messages[0]);
+      if (res.data.resultCode === 10) {
+        dispatch(getCaptchaURLTC());
+      }
+      dispatch(setErrorAC(res.data.messages[0]));
+      setTimeout(() => {
+        dispatch(setErrorAC(""));
+      }, 5000);
     }
   } catch (e) {
     console.log(e);
@@ -85,5 +114,15 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
     console.log(e);
   } finally {
     dispatch(toggleIsFetchingAC(false));
+  }
+};
+
+export const getCaptchaURLTC = () => async (dispatch: Dispatch) => {
+  try {
+    const res = await securityAPI.getCaptcha();
+    const captchaURL = res.data.url;
+    dispatch(setCaptchaURLAC(captchaURL));
+  } catch (e) {
+    console.log(e);
   }
 };

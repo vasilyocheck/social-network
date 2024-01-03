@@ -15,10 +15,8 @@ export const Login: FC<LoginPropsType> = () => {
 
   return (
     <div className={s.loginPage}>
-      <div className={s.loginWrapper}>
-        <h2>LOG IN</h2>
-        <LoginForm />
-      </div>
+      <div className={s.pageName}>LOG IN</div>
+      <LoginForm />
     </div>
   );
 };

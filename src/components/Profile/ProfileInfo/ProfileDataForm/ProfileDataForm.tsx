@@ -29,7 +29,7 @@ export const ProfileDataForm = ({ profile, toggleEditMode }: ProfileDataProps) =
       },
     },
     onSubmit: (values: ProfileDataType) => {
-      dispatch(updateProfileTC(values)).then((res) => {
+      dispatch(updateProfileTC(values)).then(() => {
         dispatch(setUserProfileTC(values.userId));
       });
       toggleEditMode(false);
