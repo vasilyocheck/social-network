@@ -7,7 +7,7 @@ type ProfilePropsType = {
   profile: UserProfileType | null;
   profileStatus: string;
   updateStatus: (status: string) => void;
-  isStatusToUpdate: boolean;
+  isToUpdate: boolean;
 };
 
 export const Profile: FC<ProfilePropsType> = (props) => {
@@ -17,7 +17,7 @@ export const Profile: FC<ProfilePropsType> = (props) => {
         profile={props.profile}
         profileStatus={props.profileStatus}
         updateStatus={props.updateStatus}
-        isStatusToUpdate={props.isStatusToUpdate}
+        isToUpdate={props.isToUpdate}
       />
       <MyPostsContainer />
     </div>

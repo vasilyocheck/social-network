@@ -1,18 +1,15 @@
-import React, { ChangeEvent, FC, useRef } from "react";
+import React, { ChangeEvent, useRef } from "react";
 import downloadIcon from "../../../../assets/img/camera.svg";
-import s from "./DownLoadAvatar.module.css";
 import mainS from "../ProfileInfo.module.css";
-import { useAppDispatch, useAppSelector } from "app/hooks";
-import { getProfile } from "utils/utils";
+import { useAppDispatch } from "app/hooks";
 import { updateAvatarTC } from "redux/reducers/profile-reducer";
 
 type DownLoadAvatarPropsType = {
-  setAva: (ava: string) => void;
+  disabled: boolean;
 };
 
-export const DownLoadAvatar: FC<DownLoadAvatarPropsType> = () => {
+export const DownLoadAvatar = ({ disabled }: DownLoadAvatarPropsType) => {
   const dispatch = useAppDispatch();
-  const profile = useAppSelector(getProfile);
   const inputRef = useRef<HTMLInputElement>(null);
   const selectFileHandler = () => {
     inputRef && inputRef.current?.click();
@@ -37,7 +34,7 @@ export const DownLoadAvatar: FC<DownLoadAvatarPropsType> = () => {
   return (
     <div className={mainS.loadingIcon}>
       <label>
-        <button className={mainS.downloadIcon} onClick={selectFileHandler}>
+        <button className={mainS.downloadIcon} onClick={selectFileHandler} disabled={disabled}>
           <img src={downloadIcon} alt="download icon" className={mainS.camIcon} />
         </button>
         <input type="file" ref={inputRef} className={mainS.downloadInput} onChange={handleUpload} accept="image/*" />

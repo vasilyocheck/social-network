@@ -1,4 +1,4 @@
-import { profileAPI, UserProfileType } from "api/profile-api";
+import { profileAPI, ProfileDataType, UserProfileType } from "api/profile-api";
 import { Dispatch } from "redux";
 
 export type GeneralProfileReducerType =
@@ -133,6 +133,7 @@ export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => 
 };
 
 export const updateAvatarTC = (formData: any) => async (dispatch: Dispatch) => {
+  dispatch(setIsLoadingAC(true));
   try {
     const res = await profileAPI.updateAvatar(formData);
     if (res.data.resultCode === 0) {
@@ -140,5 +141,18 @@ export const updateAvatarTC = (formData: any) => async (dispatch: Dispatch) => {
     }
   } catch (e) {
     console.log(e);
+  } finally {
+    dispatch(setIsLoadingAC(false));
+  }
+};
+
+export const updateProfileTC = (profileData: ProfileDataType) => async (dispatch: Dispatch) => {
+  dispatch(setIsLoadingAC(true));
+  try {
+    await profileAPI.updateProfile(profileData);
+  } catch (e) {
+    console.log(e);
+  } finally {
+    dispatch(setIsLoadingAC(false));
   }
 };

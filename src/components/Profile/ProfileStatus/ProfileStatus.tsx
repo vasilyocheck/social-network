@@ -3,7 +3,7 @@ import React, { ChangeEvent } from "react";
 type ProfileStatusType = {
   status: string;
   updateStatus: (status: string) => void;
-  isStatusToUpdate: boolean;
+  isToUpdate: boolean;
 };
 
 export class ProfileStatus extends React.Component<ProfileStatusType> {
@@ -13,7 +13,7 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
   };
 
   activateEditMode = () => {
-    if (this.props.isStatusToUpdate) {
+    if (this.props.isToUpdate) {
       this.setState({ editMode: true });
     }
   };
@@ -33,10 +33,14 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
       <div>
         {!this.state.editMode ? (
           <div>
-            <span onDoubleClick={this.activateEditMode}>{status}</span>
+            <span onDoubleClick={this.activateEditMode}>
+              <b>Status: </b>
+              {status}
+            </span>
           </div>
         ) : (
           <div>
+            <b>Status: </b>
             <input
               onChange={this.onStatusChange}
               value={this.state.status}

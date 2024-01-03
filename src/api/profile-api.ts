@@ -41,6 +41,15 @@ export type ResponseType<D = {}> = {
   data: D;
 };
 
+export type ProfileDataType = {
+  userId: number;
+  aboutMe: string;
+  fullName: string;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  contacts: ContactsType;
+};
+
 export const profileAPI = {
   getProfile(userId: number) {
     return instance.get<UserProfileType>(`profile/${userId}`);
@@ -56,5 +65,8 @@ export const profileAPI = {
       `profile/photo`,
       formData,
     );
+  },
+  updateProfile(profileData: ProfileDataType) {
+    return instance.put<ResponseType, AxiosResponse<ResponseType>>(`profile`, profileData);
   },
 };
